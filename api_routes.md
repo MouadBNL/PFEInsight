@@ -39,8 +39,8 @@ La route de base de tous les routes ici est `/api/v1/`
 `POST`      `enseignant` Ajouter un enseignant<br/>
 `DELETE`    `enseignant` Supprimer un enseignant<br/>
 
-`POST`      `admin` Ajouter un admin
-`DELETE`    `admin` Supprimer un admin
+`POST`      `admin` Ajouter un admin<br/>
+`DELETE`    `admin` Supprimer un admin<br/>
 
 <!-- ! to search about excel importation -->
 `POST`      `etudiant/importation` Importation des etudiants depuis un fichier excel<br/>
