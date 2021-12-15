@@ -3,57 +3,57 @@
 La route de base de tous les routes ici est `/api/v1/`
 
 ## Authentification
-`POST` `auth/login`.
-`POST` `auth/me`.
-`POST` `auth/logout`.
+`POST` `auth/login`<br/>
+`POST` `auth/me`<br/>
+`POST` `auth/logout`<br/>
 
 
 ## Etudiant
 
 ### Profil
-`PUT`       `etudiant/profil` Modifer le profile de l'etudiant connecter.
+`PUT`       `etudiant/profil` Modifer le profile de l'etudiant connecter<br/>
 
 ### Stage
-`POST`      `etudiant/stage` Creerer un Stage pour l'etudiant connecter.
-`PUT`       `etudiant/stage` Modifier le stage pour l'etudiant connecter.
-`DELETE`    `etudiant/stage` Supprimer le stage pour l'etudiant connecter.
+`POST`      `etudiant/stage` Creerer un Stage pour l'etudiant connecter<br/>
+`PUT`       `etudiant/stage` Modifier le stage pour l'etudiant connecter<br/>
+`DELETE`    `etudiant/stage` Supprimer le stage pour l'etudiant connecter<br/>
 
-`POST`      `etudiant/stage/{internship_id}/invite/{user_id}` Envoyer une invitation a un autre etudiant pour rejoindre le stage.
+`POST`      `etudiant/stage/{internship_id}/invite/{user_id}` Envoyer une invitation a un autre etudiant pour rejoindre le stage<br/>
 
 ## Enseignant
 
 ### Profil
-`PUT`       `enseignant/profil` Modifier le profil de l'enseignant connecter.
+`PUT`       `enseignant/profil` Modifier le profil de l'enseignant connecter<br/>
 
 ### Stage
-`POST`      `enseignant/stage/{stage_id}` Encadrer un stage pour l'enseignant connecter.
-`DELETE`    `enseignant/stage/{stage_id}` Ne plus encadrer le stage pour l'enseignant connecter.
+`POST`      `enseignant/stage/{stage_id}` Encadrer un stage pour l'enseignant connecter<br/>
+`DELETE`    `enseignant/stage/{stage_id}` Ne plus encadrer le stage pour l'enseignant connecter<br/>
 
 
 ## Admin
-`GET`       `etudiant` Voir la liste des etudiants.
+`GET`       `etudiant` Voir la liste des etudiants<br/>
 
-`POST`      `etudiant` Ajouter un etudiant.
-`DELETE`    `etudiant` Supprimer un etudiant.
+`POST`      `etudiant` Ajouter un etudiant<br/>
+`DELETE`    `etudiant` Supprimer un etudiant<br/>
 
-`POST`      `enseignant` Ajouter un enseignant.
-`DELETE`    `enseignant` Supprimer un enseignant.
+`POST`      `enseignant` Ajouter un enseignant<br/>
+`DELETE`    `enseignant` Supprimer un enseignant<br/>
 
 `POST`      `admin` Ajouter un admin
 `DELETE`    `admin` Supprimer un admin
 
 <!-- ! to search about excel importation -->
-`POST`      `etudiant/importation` Importation des etudiants depuis un fichier excel.
-`POST`      `enseignant/importation` Importation des enseignants depuis un fichier excel.
+`POST`      `etudiant/importation` Importation des etudiants depuis un fichier excel<br/>
+`POST`      `enseignant/importation` Importation des enseignants depuis un fichier excel<br/>
 
 
 ## Enreprise
-`POST`      `entreprise` Creer une entreprise `admin` `etudiant`.
-`PUT`       `entreprise` Modifier une entreprise `admin` `etudiant`.
-`DELETE`    `entreprise` Suprimer une entreprise `admin`, l'etudiant peut seulement change d'entreprise.
+`POST`      `entreprise` Creer une entreprise `admin` `etudiant`<br/>
+`PUT`       `entreprise` Modifier une entreprise `admin` `etudiant`<br/>
+`DELETE`    `entreprise` Suprimer une entreprise `admin`, l'etudiant peut seulement change d'entreprise<br/>
 
 ## Technologies
-`POST`      `technologie` Ajouter une technologie `etudiant`.
-`PUT`       `technologie/{tech_id}` Modifier une technologie `admin`.
-`DELETE`    `technologie{tech_id}` Suprimer une technologie `admin`.
+`POST`      `technologie` Ajouter une technologie `etudiant`<br/>
+`PUT`       `technologie/{tech_id}` Modifier une technologie `admin`<br/>
+`DELETE`    `technologie{tech_id}` Suprimer une technologie `admin`<br/>
 
