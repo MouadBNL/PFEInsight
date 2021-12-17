@@ -1,11 +1,11 @@
 import { ref } from 'vue'
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosResponse, Method } from "axios"
 
 const apiClinet = axios.create({
     baseURL: 'http://localhost:8000/api/v1'
 })
 
-export const useAxios = <T = any>(url: string, config: Object= {}) => {
+export const useAxios = <T = any>(url: string, config: Object= {}, method: Method = "GET") => {
 
     const response = ref<AxiosResponse<T>>()
     const data = ref<T>()
@@ -15,8 +15,10 @@ export const useAxios = <T = any>(url: string, config: Object= {}) => {
     const fetch = async () => {
         isLoading.value = true
         try {
+            console.log(config);
             const res = await apiClinet.request({
                 url,
+                method,
                 ...config
             })
             response.value = res

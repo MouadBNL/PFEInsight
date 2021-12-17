@@ -7,18 +7,26 @@ const apiClinet = axios.create({
 
 export const useAxios = <T = any>(url: string, config: Object= {}) => {
 
+
+
     const response = ref<AxiosResponse<T>>()
-    const data = ref<T>()
+    const data = ref<{status: string, message:string, data:T}>()
     const error = ref<any>()
     const isLoading = ref<boolean>(false)
 
-    const fetch = async () => {
+    const fetch = async (payload = {}) => {
         isLoading.value = true
         try {
             const res = await apiClinet.request({
                 url,
-                ...config
+                data: {
+                    ...payload
+                },
+                ...config,
             })
+            if(res.data.status != 'success'){
+                throw res.data.message
+            }
             response.value = res
             data.value = res.data
         } catch (err: any) {

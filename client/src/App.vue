@@ -1,9 +1,9 @@
 <template>
-	<TheBaseLayout>
+	<NMessageProvider>
 		<router-view></router-view>
-	</TheBaseLayout>
+	</NMessageProvider>
 </template>
 
 <script setup lang="ts">
-import TheBaseLayout from './layouts/base/TheBaseLayout.vue'
+import { NMessageProvider } from 'naive-ui'
 </script>
