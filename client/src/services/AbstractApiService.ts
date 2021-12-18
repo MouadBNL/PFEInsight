@@ -1,6 +1,7 @@
+import { ref } from 'vue'
 import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios'
-import { useMessage, MessageApi } from 'naive-ui'
+import { useMessage, MessageApi, commonDark } from 'naive-ui'
 
 export function isAxiosError(value: any): value is AxiosError {
     return typeof value?.response == 'object'
@@ -10,12 +11,15 @@ export abstract class AbstractApiService
 {
     protected readonly http: AxiosInstance
     protected readonly message: MessageApi
+    public isLoading
 
     protected constructor(
         protected readonly path?: string,
         protected readonly baseURL: string = 'http://localhost:8000/api/v1'
     )
     {
+        this.isLoading = ref<boolean>(false)
+        this.message = useMessage()
         if(path) {
             baseURL += path
         }
@@ -23,10 +27,31 @@ export abstract class AbstractApiService
             baseURL,
             //.. other config e.g JWT token & data
         })
+        
+        // Setting up interceptors to change isLoading value
+        this.http.interceptors.request.use(
+            config => {
+                this.isLoading.value = true
+                return config
+            },
+            error => {
+                this.isLoading.value = false
+                return Promise.reject(error)
+            }
+        )
+        this.http.interceptors.response.use(
+            response => {
+                this.isLoading.value = false
+                return response
+            },
+            error => {
+                this.isLoading.value = false
+                return Promise.reject(error)
+            }
+        )
         this.http.defaults.headers.common['Accept'] = 'application/json;charset=UTF-8';
         this.http.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
         this.loadHeaderToken()
-        this.message = useMessage()
     }
 
     protected createParams(record: Record<string, any>): URLSearchParams 
@@ -56,6 +81,9 @@ export abstract class AbstractApiService
                     // TODO: make errors more user friendly and checking the errors array
                     if(error.response.data?.message){
                         this.message.error(error.response.data.message)
+                    }
+                    if(error.response.data?.status){
+                        this.message.error(error.response.data.status)
                     }
                     console.log(error.response.data);
                     // console.log(error.response.status);

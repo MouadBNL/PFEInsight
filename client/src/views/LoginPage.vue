@@ -15,7 +15,7 @@
                     <NInput v-model:value="credentials.password" placeholder="******" type="password"/>
                 </NFormItem>
                 <NFormItem>
-                    <NButton @click="handleLogin" type="primary" :loading="login.isLoading.value">Connexion</NButton>
+                    <NButton @click="handleLogin" type="primary" :loading="auth.isLoading.value">Connexion</NButton>
                 </NFormItem>
             </NForm>
         </NCard>
