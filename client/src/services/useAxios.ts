@@ -5,6 +5,20 @@ import { useMessage } from 'naive-ui';
 const apiClinet = axios.create({
     baseURL: 'http://localhost:8000/api/v1'
 })
+apiClinet.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+        console.log('intercepted', {error})
+        if (!error.response) {
+            const msg = useMessage()
+            msg.error('Erreur de connexion')
+        }
+
+        return Promise.reject(error)
+    }
+)
 
 interface GetExceptionInterface {type: 'error' | 'info' | 'success' | 'warning', message: string}
 type HandleErrorInterface = (err: any) => GetExceptionInterface|null|undefined;
@@ -54,8 +68,10 @@ export const useAxios = <T = any>(config: Object = {}, handleException?: HandleE
                 },
                 ...config,
             }).catch(err => {throw err})
-            if(res.data.status != 'success')
+            if(res.data.status != 'success'){
+                console.log('what?')
                 throw res
+            }
             
             response.value = res
             data.value = res.data

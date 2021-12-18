@@ -26,6 +26,7 @@
 import { reactive, ref } from 'vue'
 import { NCard ,NForm, NFormItem, NInput, NButton } from 'naive-ui'
 import { useLogin } from '@/services/useAuth'
+import { useAuthService } from '@/services/AuthApiService'
 
 const formRef = ref<any>(null)
 const credentials = ref({
@@ -55,16 +56,15 @@ const rules = {
     }]
 }
 const login = useLogin();
+const auth = useAuthService();
 
 const handleLogin = async (e:any) => {
     let passVlidation = false
     await formRef.value?.validate(async (errors: Array<any>|null|undefined) => {
         if(!errors || errors.length  == 0){
             passVlidation = true
-            await login.login({
-                email: credentials.value.email,
-                password: credentials.value.password
-            })
+            const lg = await auth.login(credentials.value.email, credentials.value.password)
+            console.log(lg)
         }
     })
 
