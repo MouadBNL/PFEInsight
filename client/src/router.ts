@@ -5,10 +5,11 @@ import Loginpage from '@/views/LoginPage.vue'
 import DashboardPage from '@/views/auth/DashboardPage.vue'
 import TheAuthLayout from '@/layouts/auth/TheAuthLayout.vue'
 import { useAuthStore } from "./store/useAuthStore"
-import { useMessage } from "naive-ui"
 import auth from "./middlwares/auth"
+import guest from "./middlwares/guest"
+import checkMiddlewares from "./middlwares"
 
-export const router = createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
@@ -16,15 +17,11 @@ export const router = createRouter({
             component: Loginpage,
             name: 'login',
             beforeEnter: (to, from, next) => {
-                const authStore = useAuthStore()
-                if(authStore.first_name && authStore.role){
-                    return next({name: 'auth.dashboard'})
-                }
-                next()
+                return checkMiddlewares({to, from, next}, [guest])
             }
         },
         {
-            path: '/',
+            path: '/home',
             component: HomePage,
             name: 'home'
         },
@@ -38,13 +35,7 @@ export const router = createRouter({
             component: TheAuthLayout,
             name: 'auth',
             beforeEnter: (to, from, next) => {
-                const authStore = useAuthStore()
-                if(! authStore.role) {
-                        // const message = useMessage()
-                        // message.warning('Veuillez vous connecter')
-                    return next({name: 'login'})
-                }
-                next()
+                return checkMiddlewares({to, from, next}, [auth])
             },
             children: [
                 {
@@ -56,3 +47,5 @@ export const router = createRouter({
         }
     ]
 })
+
+export default router

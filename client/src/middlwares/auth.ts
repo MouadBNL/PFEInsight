@@ -1,10 +1,9 @@
-import { useAuthStore } from "@/modules/auth/store/auth-store"
-import { MiddlewareContext, MiddlewareSignature } from "./index"
+import { useAuthStore } from '@/store/useAuthStore'
 
-const auth: MiddlewareSignature = ({from, to, next}: MiddlewareContext) => {
+const auth = () => {
     const authStore = useAuthStore()
-    if(! authStore.token || ! authStore.user){
-        return next({name: 'auth.login'})
+    if(! authStore.email ){
+        return {location: {name: 'login'}, message: 'vous devez être authentifié pour accéder à cette page'}
     }
     return true
 }

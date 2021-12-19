@@ -1,13 +1,10 @@
-import { useAuthStore } from "@/modules/auth/store/auth-store"
-import { MiddlewareContext, MiddlewareSignature } from "."
+import { useAuthStore } from '@/store/useAuthStore'
 
-const guest: MiddlewareSignature = ({from, to, next}: MiddlewareContext) => {
+const guest = () => {
     const authStore = useAuthStore()
-    console.log(authStore.user)
-    if(authStore.token || authStore.user){
-        return false
+    if(authStore.email){
+        return{location: {name: 'auth.dashboard'}, message: 'vous ne pouvez pas accéder à cette page tant que vous êtes authentifié, veuillez vous déconnecter'}
     }
-
     return true
 }
 
