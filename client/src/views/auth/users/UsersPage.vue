@@ -8,7 +8,7 @@
 
     <n-card>
         <n-data-table 
-            :columns="createColomuns()" 
+            :columns="createColumns" 
             :data="data" 
             :pagination="{pageSize: 20}"
             :loading="userService.isLoading.value"
@@ -25,7 +25,7 @@ const message = useMessage()
 const userService = useUserService()
 const dialog = useDialog()
 
-const createColomuns = () => [
+const createColumns: any[] =  [
     {
         title: '#',
         key: 'id'
