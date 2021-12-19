@@ -43,7 +43,7 @@ const rules = {
             else if(! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) return new Error('veuillez entrer un email valide')
             return true
         },
-        trigger: ['input'],
+        trigger: ['input', 'blur'],
     }],
     password: [{
         required: true,

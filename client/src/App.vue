@@ -1,9 +1,11 @@
 <template>
 	<NMessageProvider>
-		<router-view></router-view>
+		<n-dialog-provider>
+			<router-view></router-view>
+		</n-dialog-provider>
 	</NMessageProvider>
 </template>
 
 <script setup lang="ts">
-import { NMessageProvider } from 'naive-ui'
+import { NMessageProvider, NDialogProvider } from 'naive-ui'
 </script>

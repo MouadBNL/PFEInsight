@@ -7,6 +7,8 @@ export class User
     email: string
     created_at?: string
     updated_at?: string
+    password?: string
+    password_confirmation?: string
 
     public constructor(
         user: UserParams

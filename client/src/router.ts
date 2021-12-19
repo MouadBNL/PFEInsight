@@ -31,7 +31,7 @@ const router = createRouter({
             name: 'about'
         },
         {
-            path: '',
+            path: '/auth',
             component: TheAuthLayout,
             name: 'auth',
             beforeEnter: (to, from, next) => {
@@ -42,6 +42,21 @@ const router = createRouter({
                     path: 'dashboard',
                     component: DashboardPage,
                     name: 'auth.dashboard'
+                },
+                {
+                    path: 'users',
+                    component: () => import('@/views/auth/users/UsersPage.vue'),
+                    name: 'auth.users'
+                },
+                {
+                    path: 'users/create',
+                    component: () => import('@/views/auth/users/CreateUserPage.vue'),
+                    name: 'auth.users.create'
+                },
+                {
+                    path: 'about',
+                    component: () => import('@/views/auth/AboutPage.vue'),
+                    name: 'auth.about'
                 }
             ]
         }

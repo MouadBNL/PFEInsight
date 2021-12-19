@@ -85,11 +85,15 @@ export abstract class AbstractApiService
             if (isAxiosError(error)) {
                 if (error.response) {
                     // TODO: make errors more user friendly and checking the errors array
-                    if(error.response.data !== undefined && error.response.data.message){
+                    if(error.response.data?.errors && error.response.data.errors[Object.keys(error.response.data.errors)[0]][0]) {
+                        console.log(error.response.data.errors[Object.keys(error.response.data.errors)[0]][0])
+                        this.message.error(error.response.data.errors[Object.keys(error.response.data.errors)[0]][0])
+                    }
+                    else if(error.response.data !== undefined && error.response.data.message){
                         console.log(error.response.data.message)
                         this.message.error(error.response.data.message)
                     }
-                    if(error.response.data?.status){
+                    else if(error.response.data?.status){
                         this.message.error(error.response.data.status)
                     }
                     // console.log(error.response.data);

@@ -3,13 +3,15 @@
     <n-layout-header style="height: 64px;" bordered>
 		<div class="flex justify-between items-center px-6 h-full">
 			<div>
-				<h2 class="text-xl font-black m-0">PFE Insight</h2>
+        <router-link :to="{name: 'auth.dashboard'}">
+				  <h2 class="text-xl font-black m-0 text-black no-underline">PFE Insight</h2>
+        </router-link>
 			</div>
 			<div>
 				<span class="mr-5 inline-block">
 					{{ authStore.first_name }} {{ authStore.last_name }}
 				</span>
-				<NButton type="primary" @click="handleLogout">
+				<NButton type="error" :loading="authService.isLoading.value" @click="handleLogout">
 					Se déconnecter
 				</NButton>
 			</div>
@@ -24,10 +26,14 @@
         :native-scrollbar="false"
         bordered
       >
-	  	Menu
+        <TheAuthLayoutSidebar />
       </n-layout-sider>
-      <n-layout content-style="padding: 24px;" :native-scrollbar="false">
-        <router-view></router-view>
+      <n-layout content-style="padding: 24px;" :native-scrollbar="false" class="bg-gray-50">
+
+        <main>
+          <router-view></router-view>
+        </main>
+
       </n-layout>
     </n-layout>
     <n-layout-footer
@@ -41,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import TheAuthLayoutSidebar from './TheAuthLayoutSidebar.vue'
 import { NLayout, NLayoutHeader, NLayoutSider, NButton, NLayoutFooter, useMessage } from "naive-ui"
 import { useAuthStore } from "@/store/useAuthStore"
 import { onMounted } from "vue"
