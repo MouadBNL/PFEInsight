@@ -19,7 +19,7 @@ Route::get('sayhi', function() {
     return [
         'message' => 'hi'
     ];
-});
+})->middleware(['auth:api', 'role:admin']);
 
 Route::group(['prefix' => 'auth'], function() {
 

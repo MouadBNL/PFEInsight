@@ -16,7 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         User::create([
-            'name' => 'admin',
+            'first_name' => 'admin',
+            'last_name' => 'pfe',
+            'role' => 'admin',
             'email' => 'admin@pfeinsight.com',
             'password' => bcrypt('password')
         ]);
