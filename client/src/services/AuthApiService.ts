@@ -28,13 +28,27 @@ export class AuthApiService extends AbstractApiService
             if(!data.data.access_token){
                 throw new Error('Token not found in response')
             }
-            this.setHeaderToekn(data.data.access_token)
-            let user:User = await this.verifyToken.verifyToken(data.data.access_token)
+            this.setHeaderToken(data.data.access_token)
+            let user:User = await this.verifyToken.verifyToken()
             console.log(user)
             // this.router.push({name: 'auth.dashboard'})
             return data
         })
         .catch(this.handleError.bind(this))
+    }
+
+    public logout()
+    {
+        console.log('logout')
+        console.log(this.http)
+        return this.http
+            .post('logout')
+            .then((res) => {
+                localStorage.removeItem('jwt_token')
+                window.location.reload()
+            }).catch((err:any) => {
+                console.log({err})
+            })
     }
 }
 

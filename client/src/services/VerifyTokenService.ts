@@ -12,7 +12,7 @@ export class VerifyTokenService extends AbstractApiService
         this.authStore = useAuthStore()
     }
 
-    public verifyToken(token: string): User|any
+    public verifyToken(): User|any
     {
         this.loadHeaderToken()
         return this.http
@@ -35,4 +35,7 @@ export class VerifyTokenService extends AbstractApiService
     }
 }
 
-export const useVerifyTokenService = () => { return new VerifyTokenService() }
+export function useVerifyTokenService(): VerifyTokenService
+{ 
+    return new VerifyTokenService() 
+}

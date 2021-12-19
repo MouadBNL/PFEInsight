@@ -113,7 +113,7 @@ export abstract class AbstractApiService
         throw new Error(error as any);
     }
 
-    protected setHeaderToekn(token?: string) 
+    protected setHeaderToken(token?: string) 
     {
         this.http.defaults.headers.common['Authorization'] = `Bearer ${token}`
         if(token) {
