@@ -22,7 +22,9 @@ export class VerifyTokenService extends AbstractApiService
             this.setUserStore(data.data as User)
             return data.data
         })
-        .catch(this.handleError.bind(this))
+        .catch((err) => {
+            return null
+        })
 
     }
 

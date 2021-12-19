@@ -1,12 +1,12 @@
 export class User
 {
-    readonly id?: number
-    readonly first_name: string
-    readonly last_name: string
-    readonly role: string
-    readonly email: string
-    readonly created_at?: string
-    readonly updated_at?: string
+    id?: number
+    first_name: string
+    last_name: string
+    role: string
+    email: string
+    created_at?: string
+    updated_at?: string
 
     public constructor(
         user: UserParams

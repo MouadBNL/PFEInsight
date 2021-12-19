@@ -2,7 +2,7 @@ import { User, UserNull } from "@/entities/User"
 import { defineStore } from "pinia"
 
 export const useAuthStore = defineStore('auth', {
-    state: () => ({
+    state: ():User|UserNull => ({
         first_name: undefined,
         last_name: undefined,
         email: undefined,

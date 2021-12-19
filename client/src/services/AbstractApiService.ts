@@ -85,7 +85,8 @@ export abstract class AbstractApiService
             if (isAxiosError(error)) {
                 if (error.response) {
                     // TODO: make errors more user friendly and checking the errors array
-                    if(error.response.data?.message){
+                    if(error.response.data !== undefined && error.response.data.message){
+                        console.log(error.response.data.message)
                         this.message.error(error.response.data.message)
                     }
                     if(error.response.data?.status){
