@@ -9,17 +9,31 @@ export class User
     readonly updated_at?: string
 
     public constructor(
-        first_name:string, last_name:string, role:string, email:string, id?: number, created_at?:string, updated_at?:string
+        user: UserParams
     )
     {
-        this.first_name = first_name
-        this.last_name = last_name
-        this.role = role
-        this.email = email
-        this.id = id
-        this.created_at = created_at
-        this.updated_at = updated_at
+        this.first_name = user.first_name
+        this.last_name = user.last_name
+        this.role = user.role
+        this.email = user.email
+        this.id = user.id
+        this.created_at = user.created_at
+        this.updated_at = user.updated_at
     }
 
     
+}
+
+type UserParams = {
+    first_name: string, last_name: string, role: string, email: string, id?: number, created_at?: string, updated_at?: string
+}
+
+export type UserNull = {
+    id?: number
+    first_name?: string
+    last_name?: string
+    role?: string
+    email?: string
+    created_at?: string
+    updated_at?: string
 }

@@ -30,8 +30,6 @@ export class AuthApiService extends AbstractApiService
             }
             this.setHeaderToken(data.data.access_token)
             let user:User = await this.verifyToken.verifyToken()
-            console.log(user)
-            // this.router.push({name: 'auth.dashboard'})
             return data
         })
         .catch(this.handleError.bind(this))
@@ -39,8 +37,6 @@ export class AuthApiService extends AbstractApiService
 
     public logout()
     {
-        console.log('logout')
-        console.log(this.http)
         return this.http
             .post('logout')
             .then((res) => {

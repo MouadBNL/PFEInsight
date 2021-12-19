@@ -1,7 +1,7 @@
 <template>
     <NLayout style="height: 100vh">
-    <n-layout-header style="height: 64px; padding: 24px;" bordered>
-		<div class="flex justify-between items-center">
+    <n-layout-header style="height: 64px;" bordered>
+		<div class="flex justify-between items-center px-6 h-full">
 			<div>
 				<h2 class="text-xl font-black m-0">PFE Insight</h2>
 			</div>
@@ -10,7 +10,7 @@
 					{{ authStore.first_name }} {{ authStore.last_name }}
 				</span>
 				<NButton type="primary" @click="handleLogout">
-					Logout
+					Se déconnecter
 				</NButton>
 			</div>
 		</div>
@@ -50,7 +50,7 @@ const authStore = useAuthStore()
 const authService = useAuthService()
 const message = useMessage()
 onMounted(() => {
-	if(! authStore.first_name || ! authStore.token){
+	if(! authStore.first_name){
 		const router = useRouter()
 		router.push({name: 'login'})
 	}
