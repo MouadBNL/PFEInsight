@@ -39,5 +39,5 @@ Route::group(['middleware' => ['auth:api']], function(){
 
 // Admin actions only
 Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
-    Route::apiResource('users', UserController::class)->only('store', 'destroy');
+    Route::apiResource('users', UserController::class)->only('store', 'destroy', 'index');
 });

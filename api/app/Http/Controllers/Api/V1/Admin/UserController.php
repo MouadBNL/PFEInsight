@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
+
+    public function index()
+    {
+        return $this->successResponse(User::all());
+    }
+
     public function store()
     {
         $data = request()->validate([
