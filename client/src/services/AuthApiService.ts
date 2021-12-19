@@ -36,8 +36,6 @@ export class AuthApiService extends AbstractApiService
         })
         .catch(this.handleError.bind(this))
     }
-
-    
 }
 
 export function useAuthService(): AuthApiService {

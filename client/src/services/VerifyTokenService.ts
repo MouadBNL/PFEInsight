@@ -14,6 +14,7 @@ export class VerifyTokenService extends AbstractApiService
 
     public verifyToken(token: string): User|any
     {
+        this.loadHeaderToken()
         return this.http
         .post('')
         .then((res:any) => {

@@ -118,6 +118,7 @@ export abstract class AbstractApiService
         this.http.defaults.headers.common['Authorization'] = `Bearer ${token}`
         if(token) {
             localStorage.setItem('jwt_token', token)
+            console.log('set header token')
             this.loadHeaderToken()
         } else {
             localStorage.removeItem('jwt_token')
