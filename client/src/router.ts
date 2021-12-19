@@ -6,6 +6,7 @@ import DashboardPage from '@/views/auth/DashboardPage.vue'
 import TheAuthLayout from '@/layouts/auth/TheAuthLayout.vue'
 import { useAuthStore } from "./store/useAuthStore"
 import { useMessage } from "naive-ui"
+import auth from "./middlwares/auth"
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -13,7 +14,14 @@ export const router = createRouter({
         {
             path: '/login',
             component: Loginpage,
-            name: 'login'
+            name: 'login',
+            beforeEnter: (to, from, next) => {
+                const authStore = useAuthStore()
+                if(authStore.first_name && authStore.role){
+                    return next({name: 'auth.dashboard'})
+                }
+                next()
+            }
         },
         {
             path: '/',
@@ -34,7 +42,7 @@ export const router = createRouter({
                 if(! authStore.role) {
                         // const message = useMessage()
                         // message.warning('Veuillez vous connecter')
-                    next({name: 'login'})
+                    return next({name: 'login'})
                 }
                 next()
             },
