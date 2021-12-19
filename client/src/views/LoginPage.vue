@@ -24,8 +24,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { NCard ,NForm, NFormItem, NInput, NButton } from 'naive-ui'
-import { useLogin } from '@/services/useAuth'
 import { useAuthService } from '@/services/AuthApiService'
 
 const formRef = ref<any>(null)
@@ -55,8 +55,8 @@ const rules = {
         message: 'un mot de passe est requis'
     }]
 }
-const login = useLogin();
-const auth = useAuthService();
+const auth = useAuthService()
+const router = useRouter()
 
 const handleLogin = async (e:any) => {
     let passVlidation = false
@@ -64,7 +64,10 @@ const handleLogin = async (e:any) => {
         if(!errors || errors.length  == 0){
             passVlidation = true
             const lg = await auth.login(credentials.value.email, credentials.value.password)
-            console.log(lg)
+                                .then((res) => {
+                                    router.push({name: 'auth.dashboard'})
+                                })
+
         }
     })
 

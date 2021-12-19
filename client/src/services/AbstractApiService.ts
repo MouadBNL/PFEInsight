@@ -7,6 +7,12 @@ export function isAxiosError(value: any): value is AxiosError {
     return typeof value?.response == 'object'
 }
 
+export interface DefaultResponseI<T=any> {
+    status: "success" | "invalid" | "error",
+    message?: string
+    data?: T
+}
+
 export abstract class AbstractApiService 
 {
     protected readonly http: AxiosInstance
@@ -70,7 +76,7 @@ export abstract class AbstractApiService
         return params;
     }
 
-    protected handleResponse<T = any>(response: AxiosResponse<T>): T {
+    protected handleResponse<T = any>(response: AxiosResponse<DefaultResponseI<T>>): DefaultResponseI<T> {
         return response.data;
     }
 
@@ -85,7 +91,7 @@ export abstract class AbstractApiService
                     if(error.response.data?.status){
                         this.message.error(error.response.data.status)
                     }
-                    console.log(error.response.data);
+                    // console.log(error.response.data);
                     // console.log(error.response.status);
                     // console.log(error.response.headers);
                     throw error;
