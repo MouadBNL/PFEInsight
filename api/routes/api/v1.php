@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Admin\UserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,4 +30,14 @@ Route::group(['prefix' => 'auth'], function() {
         Route::post('me', [AuthController::class, 'me']);
     });
 
+});
+
+// common actions
+Route::group(['middleware' => ['auth:api']], function(){
+
+});
+
+// Admin actions only
+Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
+    Route::apiResource('users', UserController::class)->only('store', 'destroy');
 });
