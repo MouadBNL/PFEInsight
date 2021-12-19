@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import TheAuthLayoutSidebar from './TheAuthLayoutSidebar.vue'
-import { NLayout, NLayoutHeader, NLayoutSider, NButton, NLayoutFooter, useMessage } from "naive-ui"
+import { NLayout, NLayoutHeader, NLayoutSider, NButton, NLayoutFooter, useMessage, useLoadingBar } from "naive-ui"
 import { useAuthStore } from "@/store/useAuthStore"
 import { onMounted } from "vue"
 import { useRouter } from 'vue-router'
@@ -56,13 +56,31 @@ import { useAuthService } from "@/services/AuthApiService"
 const authStore = useAuthStore()
 const authService = useAuthService()
 const message = useMessage()
+const loadingBar = useLoadingBar()
+
+import router from '@/router'
+
 onMounted(() => {
 	if(! authStore.first_name){
 		const router = useRouter()
 		router.push({name: 'login'})
 	}
-
+  router.before((to, from, next) => {
+      // If this isn't an initial page load.
+      if (from.name) {
+        // Start the route progress bar.
+        loadingBar.start()
+        console.log('stat loading bar')
+      }
+      next()
+	  })
+	  
+	  router.afterEach((to, from) => {
+      // Complete the animation of the route progress bar.
+      loadingBar.finish()
+	  })
 })
+
 const handleLogout = () => {
 	authService.logout().then((res) => {
 		message.success('logged out')

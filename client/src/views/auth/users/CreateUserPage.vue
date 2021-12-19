@@ -127,6 +127,12 @@ const handleSubmit = async () => {
     try {
         await userService.create(newUser)
         message.success('Utilisateur ajouter')
+
+        newUser.first_name = ''
+        newUser.last_name = ''
+        newUser.email = ''
+        newUser.role = ''
+        newUser.password = ''
         router.push({name: 'auth.users'})
     } catch (err) {
         console.log(err)

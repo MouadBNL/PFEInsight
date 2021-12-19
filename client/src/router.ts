@@ -1,10 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router"
-import HomePage from '@/views/HomePage.vue'
-import AboutPage from '@/views/AboutPage.vue'
-import Loginpage from '@/views/LoginPage.vue'
-import DashboardPage from '@/views/auth/DashboardPage.vue'
-import TheAuthLayout from '@/layouts/auth/TheAuthLayout.vue'
-import { useAuthStore } from "./store/useAuthStore"
 import auth from "./middlwares/auth"
 import guest from "./middlwares/guest"
 import checkMiddlewares from "./middlwares"
@@ -14,7 +8,7 @@ const router = createRouter({
     routes: [
         {
             path: '/login',
-            component: Loginpage,
+            component: () => import('@/views/LoginPage.vue'),
             name: 'login',
             beforeEnter: (to, from, next) => {
                 return checkMiddlewares({to, from, next}, [guest])
@@ -22,17 +16,17 @@ const router = createRouter({
         },
         {
             path: '/home',
-            component: HomePage,
+            component: () => import('@/views/HomePage.vue'),
             name: 'home'
         },
         {
             path: '/about',
-            component: AboutPage,
+            component: () => import('@/views/AboutPage.vue'),
             name: 'about'
         },
         {
             path: '/auth',
-            component: TheAuthLayout,
+            component: () => import('@/layouts/auth/TheAuthLayout.vue'),
             name: 'auth',
             beforeEnter: (to, from, next) => {
                 return checkMiddlewares({to, from, next}, [auth])
@@ -40,7 +34,7 @@ const router = createRouter({
             children: [
                 {
                     path: 'dashboard',
-                    component: DashboardPage,
+                    component: () => import('@/views/auth/DashboardPage.vue'),
                     name: 'auth.dashboard'
                 },
                 {

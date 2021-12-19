@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios'
-import { useMessage, MessageApi, commonDark } from 'naive-ui'
+import { useMessage, MessageApi, commonDark, useLoadingBar } from 'naive-ui'
 
 export function isAxiosError(value: any): value is AxiosError {
     return typeof value?.response == 'object'
@@ -17,6 +17,8 @@ export abstract class AbstractApiService
 {
     protected readonly http: AxiosInstance
     protected readonly message: MessageApi
+    protected readonly loadingBar
+
     public isLoading
 
     protected constructor(
@@ -24,8 +26,10 @@ export abstract class AbstractApiService
         protected readonly baseURL: string = 'http://localhost:8000/api/v1'
     )
     {
-        this.isLoading = ref<boolean>(false)
         this.message = useMessage()
+        this.loadingBar = useLoadingBar()
+        this.isLoading = ref<boolean>(false)
+
         if(path) {
             baseURL += path
         }
@@ -38,20 +42,24 @@ export abstract class AbstractApiService
         this.http.interceptors.request.use(
             config => {
                 this.isLoading.value = true
+                this.loadingBar.start()
                 return config
             },
             error => {
                 this.isLoading.value = false
+                this.loadingBar.error()
                 return Promise.reject(error)
             }
         )
         this.http.interceptors.response.use(
             response => {
                 this.isLoading.value = false
+                this.loadingBar.finish()
                 return response
             },
             error => {
                 this.isLoading.value = false
+                this.loadingBar.error()
                 return Promise.reject(error)
             }
         )
