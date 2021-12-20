@@ -130,7 +130,7 @@ const profile = reactive({
     },
     profile: {
         apogee: undefined,
-        birthday: 0,
+        birthday: undefined,
         field: undefined,
         profile_picture: undefined,
         sex: undefined,
@@ -145,10 +145,10 @@ const handleUpdateProfile = () => {
     profileForm.value.validate( async (errors:any[]) => {
         if(!errors) {
             try {
-                let data:any = profile.profile
+                let data:any = {...profile.profile}
                 let birthday = new Date(data.birthday as any)
                 data.birthday = birthday.toISOString().split('T')[0]
-                await studentService.update(profile.profile)
+                await studentService.update(data)
                 message.success('Profil mis à jour')
             } catch (err:any) {
                 console.log({err})
@@ -175,7 +175,7 @@ onMounted(async () => {
         }
         profile.profile = {
             apogee: data.data.apogee,
-            birthday: (new Date(data.data.birthday)).getTime(),
+            birthday: (new Date(data.data.birthday)).getTime() as any,
             field: data.data.field,
             profile_picture: data.data.profile_picture,
             sex: data.data.sex

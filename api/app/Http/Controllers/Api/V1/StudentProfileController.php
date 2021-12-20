@@ -19,7 +19,7 @@ class StudentProfileController extends ApiController
     {
         $data = request()->validate([
             'apogee' => ['present', 'nullable', 'string', 'max:10'],
-            'birthday' => ['present', 'nullable', 'date_format:Y-n-d'],
+            'birthday' => ['present', 'nullable', 'date_format:Y-m-d'],
             'sex' => ['present', 'nullable', 'string', 'in:male,female'],
             'field' => ['present', 'nullable', 'string', 'in:GI,GInd,GM,GE,RST'],
         ]);
