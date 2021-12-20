@@ -46,4 +46,5 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
 // Student actions only
 Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::get('profile', [StudentProfileController::class, 'index']);
+    Route::put('profile', [StudentProfileController::class, 'update']);
 });
