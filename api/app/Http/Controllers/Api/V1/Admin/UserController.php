@@ -24,6 +24,9 @@ class UserController extends ApiController
             'password' => ['min:8', 'confirmed', 'string', 'required'],
             'role' => ['required', 'string', 'in:admin,student,professor']
         ]);
+
+        $data['password'] = bcrypt($data['password']);
+
         $user = User::create($data);
 
         return $this->successResponse($user);
