@@ -55,6 +55,14 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: 'profile',
+                    component: () => import('@/views/auth/student/StudentProfilePage.vue'),
+                    name: 'auth.student.profile',
+                    beforeEnter: (to, from, next) => {
+                        return checkMiddlewares({to,from,next}, [auth], ['student'])
+                    }
+                },
+                {
                     path: 'about',
                     component: () => import('@/views/auth/AboutPage.vue'),
                     name: 'auth.about'

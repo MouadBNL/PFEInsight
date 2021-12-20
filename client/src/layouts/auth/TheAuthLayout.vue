@@ -30,7 +30,7 @@
       </n-layout-sider>
       <n-layout content-style="padding: 24px;" :native-scrollbar="false" class="bg-gray-50">
 
-        <main>
+        <main class="container mx-auto">
           <router-view></router-view>
         </main>
 

@@ -123,7 +123,6 @@ const rules = {
 }
 
 const handleSubmit = async () => {
-    console.log('sending...')
     try {
         await userService.create(newUser)
         message.success('Utilisateur ajouter')

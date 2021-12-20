@@ -32,6 +32,19 @@ const menuOptions = [
             resolveComponent('router-link'),
             {
                 to: {
+                    name: 'auth.student.profile'
+                }
+            },
+            { default: () => 'Mon profil d\'etudiant'}
+        ),
+        key: 'student',
+        roles: ['student']
+    },
+    {
+        label: () => h(
+            resolveComponent('router-link'),
+            {
+                to: {
                     name: 'auth.about'
                 }
             },
