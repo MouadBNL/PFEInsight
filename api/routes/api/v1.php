@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Admin\UserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V1\StudentProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,9 @@ Route::group(['middleware' => ['auth:api']], function(){
 // Admin actions only
 Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
     Route::apiResource('users', UserController::class)->only('store', 'destroy', 'index');
+});
+
+// Student actions only
+Route::group(['middleware' => ['auth:api', 'role:student']], function() {
+    Route::get('profile', [StudentProfileController::class, 'index']);
 });
