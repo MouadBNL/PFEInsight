@@ -28,6 +28,7 @@ class UserController extends ApiController
         $data['password'] = bcrypt($data['password']);
 
         $user = User::create($data);
+        $user->profile()->create();
 
         return $this->successResponse($user);
     }
