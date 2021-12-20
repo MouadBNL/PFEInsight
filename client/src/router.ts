@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import auth from "./middlwares/auth"
 import guest from "./middlwares/guest"
+import role from "./middlwares/role"
 import checkMiddlewares from "./middlwares"
 
 const router = createRouter({
@@ -40,12 +41,18 @@ const router = createRouter({
                 {
                     path: 'users',
                     component: () => import('@/views/auth/users/UsersPage.vue'),
-                    name: 'auth.users'
+                    name: 'auth.users',
+                    beforeEnter: (to, from, next) => {
+                        return checkMiddlewares({to, from, next}, [auth], ['admin'])
+                    }
                 },
                 {
                     path: 'users/create',
                     component: () => import('@/views/auth/users/CreateUserPage.vue'),
-                    name: 'auth.users.create'
+                    name: 'auth.users.create',
+                    beforeEnter: (to, from, next) => {
+                        return checkMiddlewares({to, from, next}, [auth], ['admin'])
+                    }
                 },
                 {
                     path: 'about',

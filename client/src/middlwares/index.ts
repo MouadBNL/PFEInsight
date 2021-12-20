@@ -1,4 +1,5 @@
 import { NavigationGuardNext, RouteLocationNormalized } from "vue-router"
+import role from "./role";
 export interface MiddlewareContext {
     to: RouteLocationNormalized,
     from: RouteLocationNormalized,
@@ -7,7 +8,8 @@ export interface MiddlewareContext {
 
 export default function checkMiddlewares(
     context: MiddlewareContext,
-    middlewares: Array<any>
+    middlewares: Array<any>,
+    roles:string|string[] = []
 ) {
     for (let i = 0; i < middlewares.length; i++) {
         const middleware = middlewares[i];
@@ -21,6 +23,12 @@ export default function checkMiddlewares(
             } else {
                 return context.next({name: 'home'})
             }
+        }
+    }
+    if(roles && roles.length > 0) {
+        const rolesContext = role(roles)
+        if(rolesContext !== true) {
+            return context.next(rolesContext.location)
         }
     }
     return context.next()
