@@ -25,7 +25,7 @@ class UserController extends ApiController
     public function uploadProfilePicture()
     {
         request()->validate([
-            'profile_picture' => ['present', 'nullable', 'file', 'max:5000']
+            'profile_picture' => ['present', 'nullable', 'file', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ]);
 
         if(!request()->profile_picture){
