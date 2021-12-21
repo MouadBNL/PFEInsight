@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StudentResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,13 +20,9 @@ class StudentResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'role' => $this->role,
-            'profile_picture' => $this->profile_picture 
+            'profile_picture' => $this->profile_picture
                                  ? env('APP_URL') . $this->profile_picture
                                  : 'https://ui-avatars.com/api/?name='. $this->first_name. '+'.$this->last_name.'&rounded=true&bold=true',
-            'sex' => $this->profile->sex,
-            'apogee' => $this->profile->apogee,
-            'field' => $this->profile->field,
-            'birthday' => $this->profile->birthday,
         ];
         return parent::toArray($request);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Resources\UserResource;
 
 class AuthController extends ApiController
 {
@@ -32,7 +33,7 @@ class AuthController extends ApiController
      */
     public function me()
     {
-        return $this->successResponse(auth()->user());
+        return $this->successResponse(new UserResource(auth()->user()->load('profile')));
     }
 
     /**

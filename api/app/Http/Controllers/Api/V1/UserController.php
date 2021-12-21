@@ -29,7 +29,7 @@ class UserController extends ApiController
         ]);
 
         if(!request()->profile_picture){
-            auth()->user()->profile()->update(['profile_picture' => null]);
+            auth()->user()->update(['profile_picture' => null]);
             return $this->successResponse(['profile_picture' => null]);
         }
 
@@ -38,7 +38,7 @@ class UserController extends ApiController
             'public/profile_pictures',
             $name
         );
-        auth()->user()->profile()->update([
+        auth()->user()->update([
             'profile_picture' => "storage/profile_pictures/$name"
         ]);
         return $this->successResponse([
