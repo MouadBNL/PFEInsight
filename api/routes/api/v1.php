@@ -37,6 +37,7 @@ Route::group(['prefix' => 'auth'], function() {
 // common actions
 Route::group(['middleware' => ['auth:api']], function(){
     Route::put('users', [UserController::class, 'update']);
+    Route::post('users/profile/picture', [UserController::class, 'uploadProfilePicture']);
 });
 
 // Admin actions only

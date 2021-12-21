@@ -20,7 +20,9 @@ class StudentResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'role' => $this->role,
-            'profile_picture' => $this->profile->profile_picture,
+            'profile_picture' => $this->profile->profile_picture 
+                                 ? env('APP_URL') . $this->profile->profile_picture
+                                 : null,
             'sex' => $this->profile->sex,
             'apogee' => $this->profile->apogee,
             'field' => $this->profile->field,

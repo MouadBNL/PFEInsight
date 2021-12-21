@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\StudentResource;
 use App\Models\User;
-use Illuminate\Http\Request;
-
 class StudentProfileController extends ApiController
 {
     public function index()
