@@ -52,6 +52,14 @@ export class UserApiService extends AbstractApiService
                     user.role == 'student' ? 'Étudiant' : 'non defini!'
         }
     }
+
+    public update(user: Object)
+    {
+        return this.http
+        .put('', user)
+        .then(this.handleResponse.bind(this))
+        .catch(this.handleError.bind(this))
+    }
 }
 
 export function useUserService(): UserApiService

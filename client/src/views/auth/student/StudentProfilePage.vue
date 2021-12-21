@@ -8,33 +8,8 @@
                 <n-tag v-if="profile.user.role"> {{ profile.user.role }} </n-tag>
             </div>
         </div>
-        <n-card title="Information utilisateur" class="mb-8">
-            <n-form :model="profile" ref="formRef">
-                <div class="flex gap-8">
-                    <n-form-item path="profile.user.first_name" label="Prénom" class="w-1/2">
-                        <n-input v-model:value="profile.user.first_name" @keydown.enter.prevent placeholder="Mouad" />
-                    </n-form-item>
-                    <n-form-item path="profile.user.last_name" label="Nom" class="w-1/2">
-                        <n-input v-model:value="profile.user.last_name" @keydown.enter.prevent placeholder="Benali" />
-                    </n-form-item>
-                </div>
-                <n-form-item path="profile.user.email" label="Email">
-                    <n-input v-model:value="profile.user.email" @keydown.enter.prevent placeholder="mouad.benali1@uit.ac.ma" />
-                </n-form-item>
-                <div class="flex gap-8">
-                    <n-form-item path="profile.user.password" label="Mot de passe" class="w-1/2">
-                        <n-input v-model:value="profile.user.password" @keydown.enter.prevent type="password" placeholder="********" />
-                    </n-form-item>
-                    <n-form-item path="profile.user.password_confirmation" label="Confirmez le mot de passe" class="w-1/2">
-                        <n-input v-model:value="profile.user.password_confirmation" @keydown.enter.prevent type="password" placeholder="********" />
-                    </n-form-item>
-                </div>
-                <div class="flex justify-end">
-                    <NButton type="success" @click="handleSubmit">Mettre à jour mes identifiants</NButton>
-                </div>
-            </n-form>
-        </n-card>
-
+        
+        <UserCredentials />
 
         <n-card title="Information profil">
             <n-form :model="profile" ref="profileForm" :rules="profileRules">
@@ -66,6 +41,7 @@ import { useStudentService } from '@/services/StudentApiService';
 import { UserApiService } from '@/services/UserApiService';
 import { NH1,NTag, NDatePicker, NCard, NButton, NForm,NFormItem,NInput, NSelect, useDialog, useMessage } from 'naive-ui'
 import { onMounted, reactive, ref } from 'vue';
+import UserCredentials from '@/components/UserCredentials.vue';
 
 const studentService = useStudentService()
 const message = useMessage()
