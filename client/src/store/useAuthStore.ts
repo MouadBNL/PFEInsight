@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('auth', {
         first_name: undefined,
         last_name: undefined,
         email: undefined,
+        profile_picture: undefined,
         role: undefined,
     })
 })

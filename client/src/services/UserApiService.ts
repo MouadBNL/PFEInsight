@@ -25,6 +25,7 @@ export class UserApiService extends AbstractApiService
             "last_name": user.last_name,
             "email": user.email,
             "role": user.role,
+            "apogee": user.apogee,
             "password": user.password,
             "password_confirmation": user.password_confirmation,
         })
@@ -59,6 +60,12 @@ export class UserApiService extends AbstractApiService
         .put('', user)
         .then(this.handleResponse.bind(this))
         .catch(this.handleError.bind(this))
+    }
+
+    public uploadProfilePicture(formData:any)
+    {
+        return this.http
+        .post('/profile/picture', formData)
     }
 }
 

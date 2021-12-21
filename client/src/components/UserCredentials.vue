@@ -1,5 +1,6 @@
 <template>
     <n-card title="Information utilisateur" class="mb-8">
+        <UploadProfilePicture />
         <n-form :model="user" ref="formRef" :rules="rules">
             <div class="flex gap-8">
                 <n-form-item path="first_name" label="Prénom" class="w-1/2">
@@ -33,6 +34,7 @@ import { NCard, NButton, NForm,NFormItem,NInput, useDialog, useMessage } from 'n
 import { useAuthStore } from '@/store/useAuthStore'
 import { useUserService } from '@/services/UserApiService'
 import { useVerifyTokenService } from '@/services/VerifyTokenService'
+import UploadProfilePicture from './UploadProfilePicture.vue'
 
 const authStore = useAuthStore()
 const tokenService = useVerifyTokenService()

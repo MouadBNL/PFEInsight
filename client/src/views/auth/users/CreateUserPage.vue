@@ -15,6 +15,9 @@
             <n-form-item path="role" label="Rôle">
                 <n-select v-model:value="newUser.role" :options="roles" placeholder="Étudiant" />
             </n-form-item>
+            <n-form-item path="apogee" label="Apogee" v-if="newUser.role == 'student'">
+                <n-input v-model:value="newUser.apogee" @keydown.enter.prevent placeholder="xxxxxxxx" />
+            </n-form-item>
             <div class="flex gap-8">
                 <n-form-item path="password" label="Mot de passe" class="w-1/2">
                     <n-input v-model:value="newUser.password" @keydown.enter.prevent type="password" placeholder="********" />
@@ -61,7 +64,8 @@ const newUser = reactive({
     email: '',
     password: '',
     password_confirmation: '',
-    role: ''
+    role: '',
+    apogee: ''
 })
 
 const rules = {
@@ -101,6 +105,15 @@ const rules = {
             else return true
         }
     },
+    apogee: {
+        required: true,
+        trigger: ['input', 'blur'],
+        validator: (rule:any, value:string) => {
+            if(newUser.role != 'student' && value) return new Error('apogee n\'est requis que si le rôle est étudiant')
+            else if(! value && newUser.role == 'student') return new Error('Role est requis pour étudiant')
+            else return true
+        }
+    },
     password: {
         required: true,
         trigger: ['input', 'blur'],
@@ -132,6 +145,7 @@ const handleSubmit = async () => {
         newUser.email = ''
         newUser.role = ''
         newUser.password = ''
+        newUser.apogee = ''
         router.push({name: 'auth.users'})
     } catch (err) {
         console.log(err)

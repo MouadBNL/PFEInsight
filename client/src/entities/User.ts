@@ -5,10 +5,12 @@ export class User
     last_name: string
     role: string
     email: string
+    profile_picture?: string
     created_at?: string
     updated_at?: string
     password?: string
     password_confirmation?: string
+    [key: string]: any
 
     public constructor(
         user: UserParams
@@ -36,6 +38,7 @@ export type UserNull = {
     last_name?: string
     role?: string
     email?: string
+    profile_picture?: string
     created_at?: string
     updated_at?: string
 }
