@@ -26,7 +26,7 @@
                         <n-select v-model:value="profile.profile.sex" :options="sexOptions" placeholder="sexe" />
                     </n-form-item>
                     <n-form-item path="profile.birthday" label="Date de naissance" class="w-1/2">
-                        <n-date-picker v-model:value="profile.profile.birthday" placeholder="Date de naissance" type="date" class="w-full" />
+                        <n-date-picker v-model:value="profile.profile.birthday" placeholder="YYYY-MM-DD" type="date" class="w-full" />
                     </n-form-item>
                 </div>
                 <div class="flex justify-end">
@@ -151,7 +151,7 @@ onMounted(async () => {
         }
         profile.profile = {
             apogee: data.data.apogee,
-            birthday: (new Date(data.data.birthday)).getTime() as any,
+            birthday: data.data.birthday ? (new Date(data.data.birthday)).getTime() as any : null,
             field: data.data.field,
             profile_picture: data.data.profile_picture,
             sex: data.data.sex

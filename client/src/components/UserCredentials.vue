@@ -1,28 +1,38 @@
 <template>
     <n-card title="Information utilisateur" class="mb-8">
-        <UploadProfilePicture />
         <n-form :model="user" ref="formRef" :rules="rules">
-            <div class="flex gap-8">
-                <n-form-item path="first_name" label="Prénom" class="w-1/2">
-                    <n-input v-model:value="user.first_name" @keydown.enter.prevent placeholder="Mouad" />
-                </n-form-item>
-                <n-form-item path="last_name" label="Nom" class="w-1/2">
-                    <n-input v-model:value="user.last_name" @keydown.enter.prevent placeholder="Benali" />
-                </n-form-item>
-            </div>
-            <n-form-item path="email" label="Email">
-                <n-input v-model:value="user.email" @keydown.enter.prevent placeholder="mouad.benali1@uit.ac.ma" />
-            </n-form-item>
-            <div class="flex gap-8">
-                <n-form-item path="password" label="Mot de passe" class="w-1/2">
-                    <n-input v-model:value="user.password" @keydown.enter.prevent type="password" placeholder="********" />
-                </n-form-item>
-                <n-form-item path="password_confirmation" label="Confirmez le mot de passe" class="w-1/2">
-                    <n-input v-model:value="user.password_confirmation" @keydown.enter.prevent type="password" placeholder="********" />
-                </n-form-item>
-            </div>
-            <div class="flex justify-end">
-                <NButton type="success" @click="handleSubmit">Mettre à jour mes identifiants</NButton>
+            <div class="flex ga-8">
+
+
+                <div class="w-1/3">
+                    <UploadProfilePicture />
+                </div>
+
+
+                <div class="w-2/3">
+                    <div class="flex gap-8">
+                        <n-form-item path="first_name" label="Prénom" class="w-1/2">
+                            <n-input v-model:value="user.first_name" @keydown.enter.prevent placeholder="Mouad" />
+                        </n-form-item>
+                        <n-form-item path="last_name" label="Nom" class="w-1/2">
+                            <n-input v-model:value="user.last_name" @keydown.enter.prevent placeholder="Benali" />
+                        </n-form-item>
+                    </div>
+                    <n-form-item path="email" label="Email">
+                        <n-input v-model:value="user.email" @keydown.enter.prevent placeholder="mouad.benali1@uit.ac.ma" />
+                    </n-form-item>
+                    <div class="flex gap-8">
+                        <n-form-item path="password" label="Mot de passe" class="w-1/2">
+                            <n-input v-model:value="user.password" @keydown.enter.prevent type="password" placeholder="********" />
+                        </n-form-item>
+                        <n-form-item path="password_confirmation" label="Confirmez le mot de passe" class="w-1/2">
+                            <n-input v-model:value="user.password_confirmation" @keydown.enter.prevent type="password" placeholder="********" />
+                        </n-form-item>
+                    </div>
+                    <div class="flex justify-end">
+                        <NButton type="success" @click="handleSubmit">Mettre à jour mes identifiants</NButton>
+                    </div>
+                </div>
             </div>
         </n-form>
     </n-card>

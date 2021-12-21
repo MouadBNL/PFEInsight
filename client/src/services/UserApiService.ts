@@ -66,6 +66,7 @@ export class UserApiService extends AbstractApiService
     {
         return this.http
         .post('/profile/picture', formData)
+        .catch(this.handleError.bind(this))
     }
 }
 
