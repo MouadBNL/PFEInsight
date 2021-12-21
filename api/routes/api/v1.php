@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Admin\UserController;
+use App\Http\Controllers\Api\V1\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\StudentProfileController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,12 +36,12 @@ Route::group(['prefix' => 'auth'], function() {
 
 // common actions
 Route::group(['middleware' => ['auth:api']], function(){
-
+    Route::put('users', [UserController::class, 'update']);
 });
 
 // Admin actions only
 Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
-    Route::apiResource('users', UserController::class)->only('store', 'destroy', 'index');
+    Route::apiResource('users', AdminUserController::class)->only('store', 'destroy', 'index');
 });
 
 // Student actions only
