@@ -4,8 +4,9 @@
             <img :src="authStore.profile_picture" alt="" class="absolute h-full w-full object-cover">     
         </div>
     
-        <div class="flex justify-center text-center" :key="rerenderKey">
+        <div class="flex items-center justify-center gap-4" :key="rerenderKey">
             <n-upload
+            style="display: inline-block;width: fit-content; height: fit-content;"
                 action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
                 :multiple="false"
                 :customRequest="upload"
@@ -13,6 +14,7 @@
             >
                 <n-button>Changer ma photo de profile</n-button>
             </n-upload>
+            <n-button type="error" @click="deleteImage" class="mb-2">Supprimer mon image</n-button>
         </div>
     </div>
 </template>
@@ -40,6 +42,14 @@ const upload = ({
         message.success('Votre photo de profil a été mise à jour')
     }).finally(()=>{
         rerenderKey.value ++;
+    })
+}
+
+const deleteImage = () => {
+    userService.uploadProfilePicture({"profile_picture": null})
+    .then(res => {
+        authStore.profile_picture = res.data.data.profile_picture
+        message.success('Votre photo de profil a été mise à jour')
     })
 }
 </script>

@@ -30,7 +30,9 @@ class UserController extends ApiController
 
         if(!request()->profile_picture){
             auth()->user()->update(['profile_picture' => null]);
-            return $this->successResponse(['profile_picture' => null]);
+            return $this->successResponse([
+                'profile_picture' => 'https://ui-avatars.com/api/?name='. auth()->user()->first_name. '+'.auth()->user()->last_name.'&rounded=true&bold=true'
+            ]);
         }
 
         $name = Str::random(20) . '.' . request()->profile_picture->extension();
