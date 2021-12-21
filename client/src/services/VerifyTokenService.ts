@@ -19,7 +19,8 @@ export class VerifyTokenService extends AbstractApiService
         .post('')
         .then((res:any) => {
             const data = this.handleResponse<User>(res)
-            this.setUserStore(data.data as User)
+            console.log(data.data)
+            this.setUserStore(data.data as any)
             return data.data
         })
         .catch((err) => {
@@ -30,10 +31,12 @@ export class VerifyTokenService extends AbstractApiService
 
     protected setUserStore(user: User)
     {
+        console.log(user)
         this.authStore.first_name = user.first_name
         this.authStore.last_name = user.last_name
         this.authStore.email = user.email
         this.authStore.role = user.role
+        this.authStore.profile_picture = user.profile_picture
     }
 }
 

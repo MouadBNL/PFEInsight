@@ -21,6 +21,7 @@ export class User
         this.role = user.role
         this.email = user.email
         this.id = user.id
+        this.profile_picture = user.profile_picture
         this.created_at = user.created_at
         this.updated_at = user.updated_at
     }
@@ -29,7 +30,7 @@ export class User
 }
 
 type UserParams = {
-    first_name: string, last_name: string, role: string, email: string, id?: number, created_at?: string, updated_at?: string
+    first_name: string, last_name: string, role: string, email: string, id?: number, profile_picture?: string, created_at?: string, updated_at?: string
 }
 
 export type UserNull = {

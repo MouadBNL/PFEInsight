@@ -7,8 +7,11 @@
 				  <h2 class="text-xl font-black m-0 text-black no-underline">PFE Insight</h2>
         </router-link>
 			</div>
-			<div>
-				<span class="mr-5 inline-block">
+			<div class="flex items-center gap-5">
+        <div class="h-8 w-8 bg-gray-50 relative rounded-full overflow-hidden">
+          <img :src="authStore.profile_picture" class="absolute top-0 left-0 h-full w-full object-cover" >
+        </div>
+				<span class=" inline-block">
 					{{ authStore.first_name }} {{ authStore.last_name }}
 				</span>
 				<NButton type="error" :loading="authService.isLoading.value" @click="handleLogout">

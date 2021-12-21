@@ -22,6 +22,7 @@ const verifyToken = async () => {
                 auth.first_name = user.first_name
                 auth.last_name = user.last_name
                 auth.role = user.role
+                auth.profile_picture = user.profile_picture
             }
         })
     } catch (err) {
