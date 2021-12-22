@@ -18,12 +18,14 @@
 <script setup lang="ts">
 import { User } from '@/entities/User'
 import { UserApiService, useUserService } from '@/services/UserApiService'
+import { useAuthStore } from '@/store/useAuthStore'
 import { NH1, NButton,NCard, NDataTable, useMessage, useDialog } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
 
 const message = useMessage()
 const userService = useUserService()
 const dialog = useDialog()
+const authStore = useAuthStore()
 
 const createColumns: any[] =  [
     {
@@ -71,6 +73,7 @@ const createColumns: any[] =  [
         title: 'Actions',
         key: 'actions',
         render(row:any) {
+            if(authStore.id != row.id)
             return h(
                 NButton,
                 {
@@ -94,6 +97,7 @@ const createColumns: any[] =  [
                 },
                 {default: () => 'supprimer'}
             )
+            else return ''
         },
     }
 ]
