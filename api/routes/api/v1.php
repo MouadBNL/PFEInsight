@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Admin\StudentController;
 use App\Http\Controllers\Api\V1\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V1\CompanyController;
 use App\Http\Controllers\Api\V1\StudentProfileController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
@@ -39,6 +40,9 @@ Route::group(['prefix' => 'auth'], function() {
 Route::group(['middleware' => ['auth:api']], function(){
     Route::put('users', [UserController::class, 'update']);
     Route::post('users/profile/picture', [UserController::class, 'uploadProfilePicture']);
+
+    Route::get('companies', [CompanyController::class, 'index']);
+    Route::post('companies', [CompanyController::class, 'store']);
 });
 
 // Admin actions only
@@ -46,6 +50,8 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
     Route::apiResource('users', AdminUserController::class)->only('store', 'destroy', 'index');
     Route::get('students', [StudentController::class, 'index']);
     Route::get('students/{user}', [StudentController::class, 'show']);
+
+    Route::delete('companies/{company}', [CompanyController::class, 'destroy']);
 });
 
 // Student actions only
