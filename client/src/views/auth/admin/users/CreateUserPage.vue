@@ -146,7 +146,7 @@ const handleSubmit = async () => {
         newUser.role = ''
         newUser.password = ''
         newUser.apogee = ''
-        router.push({name: 'auth.users'})
+        router.push({name: 'auth.admin.users'})
     } catch (err) {
         console.log(err)
     }

@@ -19,12 +19,25 @@ const menuOptions = [
             resolveComponent('router-link'),
             {
                 to: {
-                    name: 'auth.users'
+                    name: 'auth.admin.users'
                 }
             },
             { default: () => 'Utilisateurs'}
         ),
         key: 'users',
+        roles: ['admin']
+    },
+    {
+        label: () => h(
+            resolveComponent('router-link'),
+            {
+                to: {
+                    name: 'auth.admin.students'
+                }
+            },
+            { default: () => 'Étudiants'}
+        ),
+        key: 'students',
         roles: ['admin']
     },
     {

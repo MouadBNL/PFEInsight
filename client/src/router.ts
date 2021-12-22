@@ -3,6 +3,7 @@ import auth from "./middlwares/auth"
 import guest from "./middlwares/guest"
 import role from "./middlwares/role"
 import checkMiddlewares from "./middlwares"
+import PassThrough from '@/views/PassThrough.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -43,20 +44,29 @@ const router = createRouter({
                     name: 'auth.dashboard'
                 },
                 {
-                    path: 'users',
-                    component: () => import('@/views/auth/users/UsersPage.vue'),
-                    name: 'auth.users',
+                    path: 'admin',
+                    component: PassThrough,
                     beforeEnter: (to, from, next) => {
                         return checkMiddlewares({to, from, next}, [auth], ['admin'])
-                    }
-                },
-                {
-                    path: 'users/create',
-                    component: () => import('@/views/auth/users/CreateUserPage.vue'),
-                    name: 'auth.users.create',
-                    beforeEnter: (to, from, next) => {
-                        return checkMiddlewares({to, from, next}, [auth], ['admin'])
-                    }
+                    },
+                    children: [
+                        {
+                            path: 'users',
+                            component: () => import('@/views/auth/admin/users/UsersPage.vue'),
+                            name: 'auth.admin.users',
+                        },
+                        {
+                            path: 'users/create',
+                            component: () => import('@/views/auth/admin/users/CreateUserPage.vue'),
+                            name: 'auth.admin.users.create',
+                        },
+
+                        {
+                            path: 'students',
+                            component: () => import('@/views/auth/admin/students/ShowStudentPage.vue'),
+                            name: 'auth.admin.students'
+                        }
+                    ]
                 },
                 {
                     path: 'profile',
