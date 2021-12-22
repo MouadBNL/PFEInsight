@@ -45,6 +45,19 @@ const menuOptions = [
             resolveComponent('router-link'),
             {
                 to: {
+                    name: 'auth.admin.professors'
+                }
+            },
+            { default: () => 'Professeurs'}
+        ),
+        key: 'professors',
+        roles: ['admin']
+    },
+    {
+        label: () => h(
+            resolveComponent('router-link'),
+            {
+                to: {
                     name: 'auth.profile'
                 }
             },

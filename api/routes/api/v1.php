@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Admin\ProfessorController;
 use App\Http\Controllers\Api\V1\Admin\StudentController;
 use App\Http\Controllers\Api\V1\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
@@ -53,8 +54,12 @@ Route::group(['middleware' => ['auth:api']], function(){
 // Admin actions only
 Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
     Route::apiResource('users', AdminUserController::class)->only('store', 'destroy', 'index');
+    
     Route::get('students', [StudentController::class, 'index']);
     Route::get('students/{user}', [StudentController::class, 'show']);
+
+    Route::get('professors', [ProfessorController::class, 'index']);
+    Route::get('professors/{user}', [ProfessorController::class, 'show']);
 
     // Companies
     Route::delete('companies/{company}', [CompanyController::class, 'destroy']);

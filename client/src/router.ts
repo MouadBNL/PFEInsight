@@ -60,6 +60,7 @@ const router = createRouter({
                             component: () => import('@/views/auth/admin/users/CreateUserPage.vue'),
                             name: 'auth.admin.users.create',
                         },
+                        
                         {
                             path: 'students',
                             component: () => import('@/views/auth/admin/students/StudentsPage.vue'),
@@ -69,6 +70,17 @@ const router = createRouter({
                             path: 'students/:id',
                             component: () => import('@/views/auth/admin/students/StudentProfilePage.vue'),
                             name: 'auth.admin.students.show'
+                        },
+
+                        {
+                            path: 'professors',
+                            component: () => import('@/views/auth/admin/professors/ProfessorsPage.vue'),
+                            name: 'auth.admin.professors'
+                        },
+                        {
+                            path: 'professors/:id',
+                            component: () => import('@/views/auth/admin/professors/ProfessorProfilePage.vue'),
+                            name: 'auth.admin.professors.show'
                         },
                     ]
                 },

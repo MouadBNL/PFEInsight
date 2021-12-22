@@ -23,15 +23,14 @@ class UserController extends ApiController
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['min:8', 'confirmed', 'string', 'required'],
-            'role' => ['required', 'string', 'in:admin,student,professor']
+            'role' => ['required', 'string', 'in:admin,student,professor'],
+            'apogee' => ['required_if:role,student', 'string', 'nullable']
         ]);
-        $apogee = request()->validate([
-            'apogee' => ['required_if:role,student', 'string']
-        ]);
+        unset($data['apogee']);
         $data['password'] = bcrypt($data['password']);
 
         $user = User::create($data);
-        $user->profile()->create($data['role'] == 'student' ? $apogee : []);
+        $user->profile()->create($data['role'] == 'student' ? ['apogee' => request('apogee')] : []);
 
         return $this->successResponse(new UserResource($user));
     }
