@@ -60,12 +60,16 @@ const router = createRouter({
                             component: () => import('@/views/auth/admin/users/CreateUserPage.vue'),
                             name: 'auth.admin.users.create',
                         },
-
                         {
                             path: 'students',
-                            component: () => import('@/views/auth/admin/students/ShowStudentPage.vue'),
+                            component: () => import('@/views/auth/admin/students/StudentsPage.vue'),
                             name: 'auth.admin.students'
-                        }
+                        },
+                        {
+                            path: 'students/:id',
+                            component: () => import('@/views/auth/admin/students/StudentProfilePage.vue'),
+                            name: 'auth.admin.students.show'
+                        },
                     ]
                 },
                 {

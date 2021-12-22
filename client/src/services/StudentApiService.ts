@@ -20,6 +20,22 @@ export class StudentApitService extends AbstractApiService
             .then(this.handleResponse.bind(this))
             .catch(this.handleError.bind(this))
     }
+
+    public getAllStudents()
+    {
+        return this.http
+        .get('students')
+        .then(this.handleResponse.bind(this))
+        .catch(this.handleError.bind(this))
+    }
+
+    public getStudent(id:string)
+    {
+        return this.http
+        .get('students/' + id)
+        .then(this.handleResponse.bind(this))
+        .catch(this.handleError.bind(this))
+    }
 }
 
 export function useStudentService(): StudentApitService

@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-between">
-        <n-h1>Tous les utilisateur</n-h1>
+        <n-h1>Tous les utilisateurs</n-h1>
         <router-link :to="{name: 'auth.admin.users.create'}">
             <n-button type="success">Ajouter un utilisateur</n-button>
         </router-link>
