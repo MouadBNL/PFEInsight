@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\CompanyController;
 use App\Http\Controllers\Api\V1\StudentProfileController;
+use App\Http\Controllers\Api\V1\TechnologyController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,8 +42,12 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::put('users', [UserController::class, 'update']);
     Route::post('users/profile/picture', [UserController::class, 'uploadProfilePicture']);
 
+    // Comapnies 
     Route::get('companies', [CompanyController::class, 'index']);
     Route::post('companies', [CompanyController::class, 'store']);
+    // Technologies
+    Route::get('technologies', [TechnologyController::class,'index']);
+    Route::post('technologies', [TechnologyController::class,'store']);
 });
 
 // Admin actions only
@@ -51,7 +56,12 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
     Route::get('students', [StudentController::class, 'index']);
     Route::get('students/{user}', [StudentController::class, 'show']);
 
+    // Companies
     Route::delete('companies/{company}', [CompanyController::class, 'destroy']);
+    Route::put('companies/{company}', [CompanyController::class, 'update']);
+    // Technologies
+    Route::delete('technologies/{technology}', [TechnologyController::class, 'destroy']);
+    Route::put('technologies/{technology}', [TechnologyController::class, 'update']);
 });
 
 // Student actions only
