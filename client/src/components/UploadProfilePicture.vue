@@ -12,9 +12,9 @@
                 :customRequest="upload"
                 accept=".jpeg,.png,.jpg,.gif,.svg"
             >
-                <n-button>Changer ma photo de profile</n-button>
+                <n-button :loading="userServiceUpload.isLoading.value">Changer ma photo de profile</n-button>
             </n-upload>
-            <n-button type="error" @click="deleteImage" class="mb-2">Supprimer mon image</n-button>
+            <n-button type="error" @click="deleteImage" :loading="userServiceRemove.isLoading.value" class="mb-2">Supprimer mon image</n-button>
         </div>
     </div>
 </template>
@@ -25,7 +25,8 @@ import { useAuthStore } from '@/store/useAuthStore'
 import { NUpload,NButton, useMessage } from 'naive-ui'
 import { ref } from 'vue'
 
-const userService = useUserService()
+const userServiceUpload = useUserService()
+const userServiceRemove = useUserService()
 const message = useMessage()
 const authStore = useAuthStore()
 
@@ -36,7 +37,7 @@ const upload = ({
 }: any) => {
     const formData = new FormData()
     formData.append('profile_picture', file.file);
-    userService.uploadProfilePicture(formData)
+    userServiceUpload.uploadProfilePicture(formData)
     .then((res) => {
         authStore.profile_picture = res.data.data.profile_picture
         message.success('Votre photo de profil a été mise à jour')
@@ -46,7 +47,7 @@ const upload = ({
 }
 
 const deleteImage = () => {
-    userService.uploadProfilePicture({"profile_picture": null})
+    userServiceRemove.uploadProfilePicture({"profile_picture": null})
     .then(res => {
         authStore.profile_picture = res.data.data.profile_picture
         message.success('Votre photo de profil a été mise à jour')

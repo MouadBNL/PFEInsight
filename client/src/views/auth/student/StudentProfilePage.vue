@@ -30,7 +30,7 @@
                     </n-form-item>
                 </div>
                 <div class="flex justify-end">
-                    <NButton type="success" @click="handleUpdateProfile">Mettre à mon profil</NButton>
+                    <NButton type="success" @click="handleUpdateProfile" :loading="studentService.isLoading.value">Mettre à mon profil</NButton>
                 </div>
             </n-form>
         </n-card>

@@ -30,7 +30,7 @@
                         </n-form-item>
                     </div>
                     <div class="flex justify-end">
-                        <NButton type="success" @click="handleSubmit">Mettre à jour mes identifiants</NButton>
+                        <NButton type="success" @click="handleSubmit" :loading="userService.isLoading.value">Mettre à jour mes identifiants</NButton>
                     </div>
                 </div>
             </div>
