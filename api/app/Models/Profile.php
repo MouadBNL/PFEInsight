@@ -21,4 +21,14 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the internship that owns the Profile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function internship(): BelongsTo
+    {
+        return $this->belongsTo(Internship::class);
+    }
 }
