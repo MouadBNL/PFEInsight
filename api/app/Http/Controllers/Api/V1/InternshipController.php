@@ -18,7 +18,18 @@ class InternshipController extends ApiController
             'supervisor_phone' => ['nullable', 'string', 'max:20'],
         ]);
 
+        $tech = request()->validate([
+            'technologies' => ['array', 'nullable'],
+            'technologies.*' => ['required', 'exists:technologies,id']
+        ]);
+
+
         $internship = Internship::create($data);
+
+        if($tech['technologies']){
+            $tech = $tech['technologies'];
+            $internship->technologies()->sync($tech);
+        }
 
         auth()->user()->profile()->update([
             'internship_id' => $internship->id

@@ -15,11 +15,11 @@ class CreateInternshipTechnologyTable extends Migration
     {
         Schema::create('internship_technology', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('internship_id');
             $table->unsignedBigInteger('technology_id');
             $table->timestamps();
 
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('internship_id')->references('id')->on('internships')->onDelete('cascade');
             $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
         });
     }

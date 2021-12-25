@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Internship extends Model
@@ -24,13 +25,13 @@ class Internship extends Model
     }
 
     /**
-     * Get the technologies that owns the Internship
+     * The technologies that belong to the Internship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function technologies(): BelongsTo
+    public function technologies(): BelongsToMany
     {
-        return $this->belongsTo(Technology::class);
+        return $this->belongsToMany(Technology::class);
     }
 
     /**
