@@ -52,6 +52,11 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::post('technologies', [TechnologyController::class,'store']);
 });
 
+// Common actions between admin and prof
+Route::group(['middleware' => ['auth:api', 'role:admin|professor']], function(){
+    Route::get('internships', [InternshipController::class, 'index']);
+});
+
 // Admin actions only
 Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
     Route::apiResource('users', AdminUserController::class)->only('store', 'destroy', 'index');
@@ -68,6 +73,7 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
     // Technologies
     Route::delete('technologies/{technology}', [TechnologyController::class, 'destroy']);
     Route::put('technologies/{technology}', [TechnologyController::class, 'update']);
+
 });
 
 // Student actions only

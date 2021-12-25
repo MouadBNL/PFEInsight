@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class InternshipController extends ApiController
 {
+
+    public function index()
+    {
+        $internships = Internship::with(['technologies', 'supervisor'])->get();
+        return $this->successResponse($internships);
+    }
+
     public function store()
     {
         $data = request()->validate([
