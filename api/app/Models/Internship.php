@@ -11,6 +11,8 @@ class Internship extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Get all of the students for the Internship
      *

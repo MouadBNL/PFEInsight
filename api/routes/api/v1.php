@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Admin\StudentController;
 use App\Http\Controllers\Api\V1\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\CompanyController;
+use App\Http\Controllers\Api\V1\InternshipController;
 use App\Http\Controllers\Api\V1\StudentProfileController;
 use App\Http\Controllers\Api\V1\TechnologyController;
 use App\Http\Controllers\Api\V1\UserController;
@@ -73,4 +74,6 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
 Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::get('profile', [StudentProfileController::class, 'index']);
     Route::put('profile', [StudentProfileController::class, 'update']);
+
+    Route::post('internships', [InternshipController::class, 'store']);
 });
