@@ -30,4 +30,14 @@ class Internship extends Model
     {
         return $this->belongsTo(Technology::class);
     }
+
+    /**
+     * Get the supervisor that owns the Internship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function supervisor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'supervisor_id', 'id');
+    }
 }
