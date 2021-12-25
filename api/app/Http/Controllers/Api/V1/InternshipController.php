@@ -44,4 +44,22 @@ class InternshipController extends ApiController
 
         return $this->successResponse($internship);
     }
+
+    public function supervise(Internship $internship)
+    {
+        $internship->update([
+            'supervisor_id' => auth()->user()->id
+        ]);
+
+        return $this->successResponse();
+    }
+
+    public function unsupervise(Internship $internship)
+    {
+        $internship->update([
+            'supervisor_id' => null
+        ]);
+
+        return $this->successResponse();
+    }
 }

@@ -83,3 +83,9 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
 
     Route::post('internships', [InternshipController::class, 'store']);
 });
+
+// Proffesor actions only
+Route::group(['middleware' => ['auth:api', 'role:professor']], function(){
+    Route::put('internships/{internship}/supervise', [InternshipController::class, 'supervise']);
+    Route::put('internships/{internship}/unsupervise', [InternshipController::class, 'unsupervise']);
+});
