@@ -70,6 +70,19 @@ const menuOptions = [
             resolveComponent('router-link'),
             {
                 to: {
+                    name: 'auth.students.internship'
+                }
+            },
+            { default: () => 'Mon stage'}
+        ),
+        key: 'internship',
+        roles:['student']
+    },
+    {
+        label: () => h(
+            resolveComponent('router-link'),
+            {
+                to: {
                     name: 'auth.about'
                 }
             },
