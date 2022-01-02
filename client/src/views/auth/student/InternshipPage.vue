@@ -23,7 +23,7 @@
                 </template>
             </n-result>
             <n-card v-else>
-                Data loaded
+                <pre>{{internship}}</pre>
             </n-card>
         </div>
     </div>
@@ -35,9 +35,11 @@ import { useStudentService } from '@/services/StudentApiService'
 import { NSpin, NCard, NResult, NButton } from 'naive-ui'
 const studentService = useStudentService()
 const hasInternship = ref<boolean>(false)
-
+const internship = ref<any>({})
 onMounted(async () => {
     const profile = await studentService.getProfile()
+    console.log(profile.data.internship)
+    internship.value = profile.data.internship
     if(profile.data.internship != null){
         hasInternship.value = true
     }

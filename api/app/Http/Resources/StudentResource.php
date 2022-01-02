@@ -27,7 +27,7 @@ class StudentResource extends JsonResource
             'apogee' => $this->profile->apogee,
             'field' => $this->profile->field,
             'birthday' => $this->profile->birthday,
-            'internship' => $this->internship,
+            'internship' => $this->profile ? $this->profile->internship : null,
         ];
         return parent::toArray($request);
     }
