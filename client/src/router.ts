@@ -44,6 +44,11 @@ const router = createRouter({
                     name: 'auth.dashboard'
                 },
                 {
+                    path: 'profile',
+                    component: () => import('@/views/auth/profile/UserProfile.vue'),
+                    name: 'auth.profile',
+                },
+                {
                     path: 'admin',
                     component: PassThrough,
                     beforeEnter: (to, from, next) => {
@@ -85,11 +90,6 @@ const router = createRouter({
                     ]
                 },
                 {
-                    path: 'profile',
-                    component: () => import('@/views/auth/profile/UserProfile.vue'),
-                    name: 'auth.profile',
-                },
-                {
                     path: 'students',
                     component: PassThrough,
                     beforeEnter: (to, from, next) => {
@@ -105,6 +105,20 @@ const router = createRouter({
                             path: 'internship/create',
                             component: () => import('@/views/auth/student/CreateInternshipPage.vue'),
                             name: 'auth.students.internship.create'
+                        }
+                    ]
+                },
+                {
+                    path: 'professor',
+                    component: PassThrough,
+                    beforeEnter: (to, from ,next) => {
+                        return checkMiddlewares({to, from, next}, [auth], ['professor'])
+                    },
+                    children: [
+                        {
+                            path: 'internships',
+                            component: () => import('@/views/auth/internship/ShowInternshipsPage.vue'),
+                            name: 'auth.professor.internships'
                         }
                     ]
                 },

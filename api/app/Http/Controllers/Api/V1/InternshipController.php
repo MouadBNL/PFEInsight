@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StudentResource;
 use App\Models\Internship;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,12 @@ class InternshipController extends ApiController
 
     public function index()
     {
-        $internships = Internship::with(['technologies', 'supervisor'])->get();
+        $internships = Internship::with(['technologies', 'supervisor', 'company', 'students.user', 'students.user.profile'])->get();
+        foreach ($internships as &$intern) {
+            for($i = 0; $i < count($intern->students); $i++){
+                $intern->students[$i] = new StudentResource($intern->students[$i]->user);
+            }
+        }
         return $this->successResponse($internships);
     }
 
@@ -47,6 +53,12 @@ class InternshipController extends ApiController
 
     public function supervise(Internship $internship)
     {
+        if($internship->supervisor_id == auth()->user()->id) {
+            return $this->invalidResponse(null, 'vous êtes déjà le superviseur');
+        }
+        if($internship->supervisor_id != null){
+            return $this->invalidResponse(null, 'ce stage a déjà un superviseur');
+        }
         $internship->update([
             'supervisor_id' => auth()->user()->id
         ]);
@@ -56,6 +68,9 @@ class InternshipController extends ApiController
 
     public function unsupervise(Internship $internship)
     {
+        if($internship->supervisor_id != auth()->user()->id){
+            return $this->invalidResponse(null, 'Vous n\'avez aucun contrôle sur ce stage');
+        }
         $internship->update([
             'supervisor_id' => null
         ]);

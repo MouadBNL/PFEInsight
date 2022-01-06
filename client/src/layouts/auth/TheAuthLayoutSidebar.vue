@@ -80,6 +80,19 @@ const menuOptions = [
     },
     {
         label: () => h(
+             resolveComponent('router-link'),
+            {
+                to: {
+                    name: 'auth.professor.internships'
+                }
+            },
+            { default: () => 'Les stages'}
+        ),
+        key: 'professor.internships',
+        roles:['professor']
+    },
+    {
+        label: () => h(
             resolveComponent('router-link'),
             {
                 to: {
