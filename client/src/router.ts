@@ -86,6 +86,11 @@ const router = createRouter({
                             path: 'companies',
                             component: () => import('@/views/auth/admin/companies/ShowCompaniesPage.vue'),
                             name: 'auth.admin.companies'
+                        },
+                        {
+                            path: 'technologies',
+                            component: () => import('@/views/auth/admin/technologies/ShowTechnologiesPage.vue'),
+                            name: 'auth.admin.technologies'
                         }
                     ]
                 },

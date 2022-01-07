@@ -83,6 +83,19 @@ const menuOptions = [
             resolveComponent('router-link') as any,
             {
                 to: {
+                    name: 'auth.admin.technologies'
+                }
+            },
+            { default: () => 'Technologies'}
+        ),
+        key: 'technologies',
+        roles: ['admin']
+    },
+    {
+        label: () => h(
+            resolveComponent('router-link') as any,
+            {
+                to: {
                     name: 'auth.students.internship'
                 }
             },

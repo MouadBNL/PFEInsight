@@ -66,7 +66,7 @@ const columns = [
                     h(
                         NButton, {type: 'error', onClick: async () => {
                         await companyService.delete(row.id)
-                        message.success('L\'entreprise ' + row.name + ' a été supprimée ')
+                        message.success('L\'entreprise ' + row.name + ' a été supprimée')
                         companies.value = (await companyService.get()).data
                     }}, {default:()=> 'Supprimer'}
                     ),
