@@ -60,6 +60,37 @@ class InternshipController extends ApiController
         return $this->successResponse($internship);
     }
 
+    public function update()
+    {
+        $internship = auth()->user()->profile->internship;
+        $data = request()->validate([
+            'company_id' => ['required', 'exists:companies,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'supervisor_name' => ['required', 'string', 'max:255'],
+            'supervisor_phone' => ['nullable', 'string', 'max:20'],
+        ]);
+
+        $tech = request()->validate([
+            'technologies' => ['array', 'nullable'],
+            'technologies.*' => ['required', 'exists:technologies,id']
+        ]);
+
+
+        $internship->update($data);
+
+        if($tech['technologies']){
+            $tech = $tech['technologies'];
+            $internship->technologies()->sync($tech);
+        }
+
+        auth()->user()->profile()->update([
+            'internship_id' => $internship->id
+        ]);
+
+        return $this->successResponse($internship);
+    }
+
     public function supervise(Internship $internship)
     {
         if($internship->supervisor_id == auth()->user()->id) {

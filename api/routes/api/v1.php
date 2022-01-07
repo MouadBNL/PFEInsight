@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::put('profile', [StudentProfileController::class, 'update']);
 
     Route::post('internships', [InternshipController::class, 'store']);
+    Route::put('internships', [InternshipController::class, 'update']);
 });
 
 // Proffesor actions only

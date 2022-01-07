@@ -30,6 +30,13 @@ export class InternshipApiService extends AbstractApiService
             .catch(this.handleError.bind(this))
     }
 
+    public update(data:any) {
+        return this.http
+            .put('', data)
+            .then(this.handleResponse.bind(this))
+            .catch(this.handleError.bind(this))
+    }
+
     public supervise(id: number) {
         return this.http
             .put('/' + String(id) + '/supervise')
