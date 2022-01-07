@@ -26,8 +26,9 @@ const dialog = useDialog()
 
 const createColumns: any[] =  [
     {
-        title: '#',
-        key: 'id'
+        title: 'Apogee',
+        key: 'apogee',
+        sorter: 'default'
     },
     {
         title: 'Prénom',
@@ -45,17 +46,16 @@ const createColumns: any[] =  [
         sorter: 'default'
     },
     {
-        title: 'Apogee',
-        key: 'apogee',
-        sorter: 'default'
-    },
-    {
         title: 'Stage',
         key: 'internship',
         filterOptions: [
             {
-                label: 'Avec stage',
+                label: 'Avec stage et encadrant',
                 value: 'with'
+            },
+            {
+                label: 'Sans Encadrant',
+                value: 'withoutSup'
             },
             {
                 label: 'Sans stage',
@@ -64,7 +64,8 @@ const createColumns: any[] =  [
         ],
         filter (value:any, row:any) {
             if(value== 'without') return (! row.internship || ! row.internship.id)
-            if(value== 'with') return ! (! row.internship || ! row.internship.id);
+            if(value== 'withoutSup') return (! (! row.internship || ! row.internship.id)) && !(row.internship.supervisor_id)
+            if(value== 'with') return (! (! row.internship || ! row.internship.id)) && (row.internship.supervisor_id)
         },
         render(row:any) {
             if(! row.internship || ! row.internship.id) return h('span', {}, ['Sans stage'])
@@ -73,6 +74,62 @@ const createColumns: any[] =  [
                 {to: {name: 'auth.internship.show', params: {id: row.internship.id}}, class: 'text-green-700 bg-green-50 px-4 py-2 rounded'},
                 {default: () => 'Voir le stage'}
             )
+        }
+    },
+    {
+        title: 'Rpport',
+        key: 'rapprt',
+        filterOptions: [
+            {
+                label: 'Les deux rapport',
+                value: 2
+            },
+            {
+                label: 'Le premièr rapport',
+                value: 1
+            },
+            {
+                label: 'Sans rapport',
+                value: 0
+            }
+        ],
+        filter (value:any, row:any) {
+            if(value== 2) return (row.internship && row.internship.draft_report && row.internship.final_report)
+            if(value == 1) return (row.internship && row.internship.draft_report && !row.internship.final_report)
+            if(value == 0) return (row.internship && !row.internship.draft_report && !row.internship.final_report)
+        },
+        render(row:any) {
+            if(! row.internship || ! row.internship.id) return h('span', {}, ['Sans stage'])
+            return h(
+                'span', {}, [row.internship.draft_report ? 
+                    row.internship.final_report ? 'Les deux rapport' : 'Le premièr rapport'
+                : 'Sans Rapport']
+            )
+        }
+    },
+    {
+        title: 'Soutenance',
+        key: 'soutenance',
+        filterOptions: [
+            {
+                label: 'Valide',
+                value: 'valid'
+            },
+            {
+                label: 'Invalide',
+                value: 'invalid'
+            }
+        ],
+        filter (value:any, row:any) {
+            if(
+                value == 'invalid' && !(row.internship && row.internship.valid_soutenance == 1)
+                || value== 'valid' && (row.internship && row.internship.valid_soutenance == 1)
+            ) {
+                return true
+            }
+        },
+        render(row:any) {
+            return h('span', {}, [(row.internship && row.internship.valid_soutenance) ? 'Valide' : 'Invalide'])
         }
     },
     {
@@ -98,6 +155,5 @@ const data = ref<User[]>([])
 onMounted(async () => {
     let res = await studentService.getAllStudents()
     data.value = res.data
-    console.log(res.data)
 })
 </script>

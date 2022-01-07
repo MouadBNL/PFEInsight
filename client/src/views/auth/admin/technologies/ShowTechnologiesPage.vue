@@ -4,6 +4,7 @@
         <n-data-table
             :columns="columns"
             :data="technologies"
+            :pagination="{pageSize: 20}"
         />
     </n-card>
 

@@ -32,6 +32,7 @@ export class VerifyTokenService extends AbstractApiService
     protected setUserStore(user: User)
     {
         console.log(user)
+        this.authStore.id = user.id
         this.authStore.first_name = user.first_name
         this.authStore.last_name = user.last_name
         this.authStore.email = user.email
