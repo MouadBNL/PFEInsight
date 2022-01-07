@@ -75,7 +75,6 @@
                     </n-space>
                 </div>
             </div>
-            <pre>{{internship}}</pre>
         </n-card>
     </div>
 </template>

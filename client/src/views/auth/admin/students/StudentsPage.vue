@@ -16,7 +16,7 @@
 import { User } from '@/entities/User'
 import { useStudentService } from '@/services/StudentApiService'
 import { NH1, NButton,NCard, NDataTable, useMessage, useDialog } from 'naive-ui'
-import { h, onMounted, ref } from 'vue'
+import { h, onMounted, ref, resolveComponent } from 'vue'
 import { useRouter } from 'vue-router'
 
 const message = useMessage()
@@ -48,6 +48,32 @@ const createColumns: any[] =  [
         title: 'Apogee',
         key: 'apogee',
         sorter: 'default'
+    },
+    {
+        title: 'Stage',
+        key: 'internship',
+        filterOptions: [
+            {
+                label: 'Avec stage',
+                value: 'with'
+            },
+            {
+                label: 'Sans stage',
+                value: 'without'
+            }
+        ],
+        filter (value:any, row:any) {
+            if(value== 'without') return (! row.internship || ! row.internship.id)
+            if(value== 'with') return ! (! row.internship || ! row.internship.id);
+        },
+        render(row:any) {
+            if(! row.internship || ! row.internship.id) return h('span', {}, ['Sans stage'])
+            return h(
+                resolveComponent('router-link') as any,
+                {to: {name: 'auth.internship.show', params: {id: row.internship.id}}, class: 'text-green-700 bg-green-50 px-4 py-2 rounded'},
+                {default: () => 'Voir le stage'}
+            )
+        }
     },
     {
         title: 'Actions',
