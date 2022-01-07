@@ -45,8 +45,9 @@ const createColumns: any[] =  [
         sorter: 'default'
     },
     {
-        title: 'Apogee',
-        key: 'apogee',
+        title: 'Nombre de stage encadrer',
+        key: 'internships_count',
+        sorter: 'default'
     },
     {
         title: 'Actions',

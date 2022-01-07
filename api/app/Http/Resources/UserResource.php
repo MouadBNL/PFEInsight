@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Internship;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -14,7 +15,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -24,6 +25,10 @@ class UserResource extends JsonResource
                                  ? env('APP_URL') . $this->profile_picture
                                  : 'https://ui-avatars.com/api/?name='. $this->first_name. '+'.$this->last_name.'&rounded=true&bold=true',
         ];
-        return parent::toArray($request);
+        if($this->role == 'professor'){
+            $data['internships_count'] = Internship::where('supervisor_id', $this->id)->get()->count();
+        }
+        return $data;
+        // return parent::toArray($request);
     }
 }

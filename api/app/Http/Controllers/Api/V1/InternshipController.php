@@ -12,13 +12,22 @@ class InternshipController extends ApiController
 
     public function index()
     {
-        $internships = Internship::with(['technologies', 'supervisor', 'company', 'students.user', 'students.user.profile'])->get();
+        $internships = Internship::has('students')->with(['technologies', 'supervisor', 'company', 'students.user', 'students.user.profile'])->get();
         foreach ($internships as &$intern) {
             for($i = 0; $i < count($intern->students); $i++){
                 $intern->students[$i] = new StudentResource($intern->students[$i]->user);
             }
         }
         return $this->successResponse($internships);
+    }
+
+    public function show(Internship $internship)
+    {
+        $internship->load(['technologies', 'supervisor', 'company', 'students.user', 'students.user.profile']);
+        for($i = 0; $i < count($internship->students); $i++){
+            $internship->students[$i] = new StudentResource($internship->students[$i]->user);
+        }
+        return $this->successResponse($internship);
     }
 
     public function store()
@@ -72,7 +81,51 @@ class InternshipController extends ApiController
             return $this->invalidResponse(null, 'Vous n\'avez aucun contrôle sur ce stage');
         }
         $internship->update([
-            'supervisor_id' => null
+            'supervisor_id' => null,
+            'valid_soutenance' => false,
+            'score' => 0
+        ]);
+
+        return $this->successResponse();
+    }
+
+    public function valid(Internship $internship)
+    {
+        if($internship->supervisor_id != auth()->user()->id){
+            return $this->invalidResponse(null, 'Vous n\'avez aucun contrôle sur ce stage');
+        }
+
+        $internship->update([
+            'valid_soutenance' => true
+        ]);
+
+        return $this->successResponse();
+    }
+
+    public function invalid(Internship $internship)
+    {
+        if($internship->supervisor_id != auth()->user()->id){
+            return $this->invalidResponse(null, 'Vous n\'avez aucun contrôle sur ce stage');
+        }
+
+        $internship->update([
+            'valid_soutenance' => false
+        ]);
+
+        return $this->successResponse();
+    }
+
+    public function score(Internship $internship)
+    {
+        if($internship->supervisor_id != auth()->user()->id){
+            return $this->invalidResponse(null, 'Vous n\'avez aucun contrôle sur ce stage');
+        }
+        $data = request()->validate([
+            'score' => ['required', 'numeric', 'max:20', 'min:0']
+        ]);
+
+        $internship->update([
+            'score' => $data['score']
         ]);
 
         return $this->successResponse();

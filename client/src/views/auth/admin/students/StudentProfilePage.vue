@@ -48,6 +48,10 @@
         </div>
     </n-card>
 
+    <div v-if="student && student.internship && student.internship.id" class="mt-8">
+        <display-internship-info :id="student.internship.id" />
+    </div>
+
 </template>
 
 <script setup lang="ts">
@@ -55,6 +59,7 @@ import { NCard, useMessage } from 'naive-ui';
 import { useStudentService } from '@/services/StudentApiService';
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import DisplayInternshipInfo from '@/components/DisplayInternshipInfo.vue';
 
 const route = useRoute()
 const message = useMessage()
@@ -64,10 +69,10 @@ const student = ref<any>(undefined)
 
 onMounted(async () => {
     try {
-
         let id = route.params.id as any
         const res = await studentService.getStudent(id)
         student.value = res.data
+        console.log({t: student.value})
     } catch(err) {
         message.error('erreur lors de l\'accès aux données')
     }

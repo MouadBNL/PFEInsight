@@ -47,6 +47,7 @@ const createColumns: any[] =  [
     {
         title: 'Apogee',
         key: 'apogee',
+        sorter: 'default'
     },
     {
         title: 'Actions',

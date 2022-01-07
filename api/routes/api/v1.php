@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth:api']], function(){
 // Common actions between admin and prof
 Route::group(['middleware' => ['auth:api', 'role:admin|professor']], function(){
     Route::get('internships', [InternshipController::class, 'index']);
+    Route::get('internships/{internship}', [InternshipController::class, 'show']);
+    Route::get('students/{user}', [StudentController::class, 'show']);
 });
 
 // Admin actions only
@@ -62,7 +64,6 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
     Route::apiResource('users', AdminUserController::class)->only('store', 'destroy', 'index');
     
     Route::get('students', [StudentController::class, 'index']);
-    Route::get('students/{user}', [StudentController::class, 'show']);
 
     Route::get('professors', [ProfessorController::class, 'index']);
     Route::get('professors/{user}', [ProfessorController::class, 'show']);
@@ -88,4 +89,8 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
 Route::group(['middleware' => ['auth:api', 'role:professor']], function(){
     Route::put('internships/{internship}/supervise', [InternshipController::class, 'supervise']);
     Route::put('internships/{internship}/unsupervise', [InternshipController::class, 'unsupervise']);
+
+    Route::put('internships/{internship}/valid', [InternshipController::class, 'valid']);
+    Route::put('internships/{internship}/invalid', [InternshipController::class, 'invalid']);
+    Route::put('internships/{internship}/score', [InternshipController::class, 'score']);
 });

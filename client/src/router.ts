@@ -71,11 +71,6 @@ const router = createRouter({
                             component: () => import('@/views/auth/admin/students/StudentsPage.vue'),
                             name: 'auth.admin.students'
                         },
-                        {
-                            path: 'students/:id',
-                            component: () => import('@/views/auth/admin/students/StudentProfilePage.vue'),
-                            name: 'auth.admin.students.show'
-                        },
 
                         {
                             path: 'professors',
@@ -121,6 +116,22 @@ const router = createRouter({
                             name: 'auth.professor.internships'
                         }
                     ]
+                },
+                {
+                    path: 'internship/:id',
+                    component: () => import('@/views/auth/internship/InternshipPage.vue'),
+                    name: 'auth.internship.show',
+                    beforeEnter: (to, from ,next) => {
+                        return checkMiddlewares({to, from, next}, [auth], ['professor', 'admin'])
+                    }
+                },
+                {
+                    path: 'students/:id',
+                    component: () => import('@/views/auth/admin/students/StudentProfilePage.vue'),
+                    name: 'auth.admin.students.show',
+                    beforeEnter: (to, from ,next) => {
+                        return checkMiddlewares({to, from, next}, [auth], ['professor', 'admin'])
+                    }
                 },
                 {
                     path: 'about',

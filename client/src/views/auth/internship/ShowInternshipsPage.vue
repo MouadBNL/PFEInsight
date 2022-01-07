@@ -3,12 +3,13 @@
 
     <n-card>
         <n-data-table 
+            :bordered="true"
+            :single-line="false"
             :columns="columns"
             :data="internships"
             :pagination="{pageSize: 20}"
             :loading="internshipService.isLoading.value"
         />
-        <pre>{{internships}}</pre>
     </n-card>
 </template>
 
@@ -17,7 +18,7 @@ import StudentSmallCard from '@/components/StudentSmallCard.vue'
 import { useInternshipService } from '@/services/InternshipApiService'
 import { useAuthStore } from '@/store/useAuthStore'
 import { NH1, NCard, NDataTable, NButton, useMessage, idID } from 'naive-ui'
-import { h, onMounted, ref } from 'vue'
+import { h, onMounted, ref, resolveComponent } from 'vue'
 
 const internshipService = useInternshipService()
 const message = useMessage()
@@ -28,7 +29,7 @@ const internships = ref<any[]>([])
 const createColumns = () => {
     return [
         {
-            title: 'Id de stage',
+            title: '#',
             key: 'id'
         },
         {
@@ -114,6 +115,45 @@ const createColumns = () => {
                     'div',
                     {},
                     [row.supervisor.first_name + ' ' + row.supervisor.last_name]
+                )
+            }
+        },
+        {
+            title: 'Soutenance',
+            key: 'valid_soutenance',
+            filterOptions: [
+                {
+                    label: 'Valide',
+                    value: 'valid'
+                },
+                {
+                    label: 'Invalide',
+                    value: 'invalid'
+                }
+            ],
+            defaultFilterOptionValues: ['valid', 'invalid'],
+            filter (value:any, row:any) {
+                return row.valid_soutenance == ('valid' === value)
+            },
+            render(row:any) {
+                return h('span', {class:'block text-center'}, [row.valid_soutenance ? 'Valide' : 'Invalide'])
+            }
+        },
+        {
+            title: 'Action',
+            key: 'actions',
+            render(row:any) {
+                return h(
+                    resolveComponent('router-link') as any,
+                    {to: {
+                        name: 'auth.internship.show',
+                        params: {
+                            id: row.id
+                        }
+                    }},
+                    {
+                        default: () => h(NButton, {type: 'success'}, {default: () => 'voir les détails'})
+                    }
                 )
             }
         }
