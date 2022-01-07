@@ -21,6 +21,13 @@ export class CompanyApiService extends AbstractApiService
             .catch(this.handleError.bind(this))
     }
 
+    public update(id:any, data:any) {
+        return this.http
+            .put('/' + id, data)
+            .then(this.handleResponse.bind(this))
+            .catch(this.handleError.bind(this))
+    }
+
     public delete(id:string)
     {
         return this.http

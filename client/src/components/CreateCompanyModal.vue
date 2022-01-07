@@ -1,6 +1,6 @@
 <template>
     <n-card
-        title="Ajouter une entreprise"
+        :title="isUpdate ? 'Modifier une entreprise' : 'Ajouter une entreprise'"
         class="w-1/2"
     >
         <n-form :model="company" ref="companyForm" :rules="companyRules">
@@ -16,7 +16,12 @@
             <n-form-item path="phone" label="Numéro de téléphone">
                 <n-input v-model:value="company.phone" placeholder="Numéro de téléphone" />
             </n-form-item>
-            <n-button type="success" @click="createCompany" :loading="companyService.isLoading.value">Ajouter</n-button>
+            <template v-if="isUpdate">
+                <n-button type="success" @click="updateCompany" :loading="companyService.isLoading.value">Modifier</n-button>
+            </template>
+            <template v-else>
+                <n-button type="success" @click="createCompany" :loading="companyService.isLoading.value">Ajouter</n-button>
+            </template>
         </n-form>
     </n-card>
 </template>
@@ -24,9 +29,10 @@
 <script setup lang="ts">
 import { useCompanyService } from '@/services/CompanyApiService'
 import { NCard, NForm, NFormItem, NInput, NButton, useMessage } from 'naive-ui'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const emit = defineEmits(['created'])
+const emit = defineEmits(['created', 'updated'])
+const props = defineProps<{init?: any}>()
 const companyService = useCompanyService()
 const message = useMessage()
 
@@ -62,12 +68,19 @@ const companyRules:any = {
     ]
 }
 const company = ref({
+    id: undefined,
     name: '',
     address: '',
     city: '',
     phone: ''
 })
-
+const isUpdate = ref<boolean>(false)
+onMounted(() => {
+    if(props.init != undefined && props.init != null){
+        isUpdate.value = true
+        company.value = props.init
+    }
+})
 const createCompany = (e:any) => {
     e.preventDefault();
     companyForm.value.validate(async (err:any) => {
@@ -80,14 +93,16 @@ const createCompany = (e:any) => {
                 name: res.data.name,
                 city: res.data.city
             })
-            // companiesOptions.value.push({
-            //     value: res.data.id,
-            //     label: res.data.name + ' ' + res.data.city,
-            //     name: res.data.name,
-            //     city: res.data.city
-            // })
-            // internship.value.company_id = res.data.id
-            // companyModal.value = false
+        }
+    })
+}
+const updateCompany = (e:any) => {
+    e.preventDefault();
+    companyForm.value.validate(async (err:any) => {
+        if(!err) {
+            const res = await companyService.update(company.value.id,company.value)
+            message.success('entreprise modifier avec succès')
+            emit('updated')
         }
     })
 }

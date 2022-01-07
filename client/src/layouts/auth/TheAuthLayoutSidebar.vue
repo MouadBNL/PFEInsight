@@ -16,7 +16,7 @@ const authStore = useAuthStore()
 const menuOptions = [
     {
         label: () => h(
-            resolveComponent('router-link'),
+            resolveComponent('router-link') as any,
             {
                 to: {
                     name: 'auth.profile'
@@ -28,7 +28,7 @@ const menuOptions = [
     },
     {
         label: () => h(
-            resolveComponent('router-link'),
+            resolveComponent('router-link') as any,
             {
                 to: {
                     name: 'auth.admin.users'
@@ -41,7 +41,7 @@ const menuOptions = [
     },
     {
         label: () => h(
-            resolveComponent('router-link'),
+            resolveComponent('router-link') as any,
             {
                 to: {
                     name: 'auth.admin.students'
@@ -54,7 +54,7 @@ const menuOptions = [
     },
     {
         label: () => h(
-            resolveComponent('router-link'),
+            resolveComponent('router-link') as any,
             {
                 to: {
                     name: 'auth.admin.professors'
@@ -67,7 +67,20 @@ const menuOptions = [
     },
     {
         label: () => h(
-            resolveComponent('router-link'),
+            resolveComponent('router-link') as any,
+            {
+                to: {
+                    name: 'auth.admin.companies'
+                }
+            },
+            { default: () => 'Entreprises'}
+        ),
+        key: 'companies',
+        roles: ['admin']
+    },
+    {
+        label: () => h(
+            resolveComponent('router-link') as any,
             {
                 to: {
                     name: 'auth.students.internship'
@@ -80,7 +93,7 @@ const menuOptions = [
     },
     {
         label: () => h(
-             resolveComponent('router-link'),
+             resolveComponent('router-link') as any,
             {
                 to: {
                     name: 'auth.professor.internships'
@@ -93,7 +106,7 @@ const menuOptions = [
     },
     {
         label: () => h(
-            resolveComponent('router-link'),
+            resolveComponent('router-link') as any,
             {
                 to: {
                     name: 'auth.about'
