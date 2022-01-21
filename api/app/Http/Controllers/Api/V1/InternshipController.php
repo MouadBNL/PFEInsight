@@ -170,8 +170,10 @@ class InternshipController extends ApiController
             'draft' => ['present', 'nullable', 'file', 'max:40960']
         ]);
 
+        $internship = auth()->user()->profile->internship;
+
         if(!request()->draft){
-            auth()->user()->update(['draft_report' => null]);
+            $internship->update(['draft_report' => null]);
             return $this->successResponse();
         }
 
@@ -180,7 +182,7 @@ class InternshipController extends ApiController
             'public/reports',
             $name
         );
-        auth()->user()->update([
+        $internship->update([
             'draft_report' => "storage/reports/$name"
         ]);
         return $this->successResponse([
@@ -194,8 +196,10 @@ class InternshipController extends ApiController
             'final' => ['present', 'nullable', 'file', 'max:40960']
         ]);
 
+        $internship = auth()->user()->profile->internship;
+
         if(!request()->final){
-            auth()->user()->update(['final_report' => null]);
+            $internship->update(['final_report' => null]);
             return $this->successResponse();
         }
 
@@ -204,7 +208,7 @@ class InternshipController extends ApiController
             'public/reports',
             $name
         );
-        auth()->user()->update([
+        $internship->update([
             'final_report' => "storage/reports/$name"
         ]);
         return $this->successResponse([
@@ -218,8 +222,10 @@ class InternshipController extends ApiController
             'presentation' => ['present', 'nullable', 'file', 'max:40960']
         ]);
 
+        $internship = auth()->user()->profile->internship;
+
         if(!request()->presentation){
-            auth()->user()->update(['presentation' => null]);
+            $internship->update(['presentation' => null]);
             return $this->successResponse();
         }
 
@@ -228,7 +234,7 @@ class InternshipController extends ApiController
             'public/presentations',
             $name
         );
-        auth()->user()->update([
+        $internship->update([
             'presentation' => "storage/presentations/$name"
         ]);
         return $this->successResponse([
