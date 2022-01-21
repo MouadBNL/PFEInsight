@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
 use App\Models\Internship;
@@ -160,5 +161,78 @@ class InternshipController extends ApiController
         ]);
 
         return $this->successResponse();
+    }
+
+
+    public function uploadDraft()
+    {
+        request()->validate([
+            'draft' => ['present', 'nullable', 'file', 'max:40960']
+        ]);
+
+        if(!request()->draft){
+            auth()->user()->update(['draft_report' => null]);
+            return $this->successResponse();
+        }
+
+        $name = Str::random(20) . '_draft_' . request()->draft->getClientOriginalName() . '.' . request()->draft->extension();
+        request()->draft->storeAs(
+            'public/reports',
+            $name
+        );
+        auth()->user()->update([
+            'draft_report' => "storage/reports/$name"
+        ]);
+        return $this->successResponse([
+            'draft_report' => env('APP_URL') . "storage/reports/$name"
+        ]);
+    }
+
+    public function uploadFinal()
+    {
+        request()->validate([
+            'final' => ['present', 'nullable', 'file', 'max:40960']
+        ]);
+
+        if(!request()->final){
+            auth()->user()->update(['final_report' => null]);
+            return $this->successResponse();
+        }
+
+        $name = Str::random(20) . '_final_' . request()->final->getClientOriginalName() . '.' . request()->final->extension();
+        request()->final->storeAs(
+            'public/reports',
+            $name
+        );
+        auth()->user()->update([
+            'final_report' => "storage/reports/$name"
+        ]);
+        return $this->successResponse([
+            'final_report' => env('APP_URL') . "storage/reports/$name"
+        ]);
+    }
+
+    public function uploadPresentation()
+    {
+        request()->validate([
+            'presentation' => ['present', 'nullable', 'file', 'max:40960']
+        ]);
+
+        if(!request()->presentation){
+            auth()->user()->update(['presentation' => null]);
+            return $this->successResponse();
+        }
+
+        $name = Str::random(20) . '_' . request()->presentation->getClientOriginalName() . '.' . request()->presentation->extension();
+        request()->presentation->storeAs(
+            'public/presentations',
+            $name
+        );
+        auth()->user()->update([
+            'presentation' => "storage/presentations/$name"
+        ]);
+        return $this->successResponse([
+            'presentation' => env('APP_URL') . "storage/presentations/$name"
+        ]);
     }
 }
