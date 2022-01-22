@@ -28,9 +28,34 @@
 
                         <n-card title="Fichier">
                             <n-space>
-                                <n-button>Presentation</n-button>
-                                <n-button>Rapport non corrigée</n-button>
-                                <n-button>Rapport corrigée</n-button>
+                                <div>
+                                    <a v-if="internship.presentation" :href="baseUrl + internship.presentation" target="_blank">
+                                        <NButton class="ml-4" type="success">Presentation</NButton>
+                                    </a>
+                                    <span v-else>
+                                        <n-button disabled>Presentation</n-button>
+                                    </span>
+                                </div>
+
+
+                                <div>
+                                    <a v-if="internship.draft_report" :href="baseUrl + internship.draft_report" target="_blank">
+                                        <NButton class="ml-4" type="success">Rapport non corrigée</NButton>
+                                    </a>
+                                    <span v-else>
+                                        <n-button disabled>Rapport non corrigée</n-button>
+                                    </span>
+                                </div>
+
+
+                                <div>
+                                    <a v-if="internship.final_report" :href="baseUrl + internship.final_report" target="_blank">
+                                        <NButton class="ml-4" type="success">Rapport corrigée</NButton>
+                                    </a>
+                                    <span v-else>
+                                        <n-button disabled>Rapport corrigée</n-button>
+                                    </span>
+                                </div>
                             </n-space>
                         </n-card>
                     </n-space>
@@ -85,6 +110,7 @@ import { useAuthStore } from '@/store/useAuthStore'
 import { NH1, NCard, NP, NSpace, NButton, NHr, NInputNumber, NTag } from 'naive-ui'
 import StudentSmallCard from '@/components/StudentSmallCard.vue'
 import { onMounted, ref } from 'vue'
+import { baseUrl } from '@/services/dataService'
 
 const authStore = useAuthStore()
 const internshipService = useInternshipService()
