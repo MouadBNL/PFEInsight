@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invitation;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,8 @@ class InvitationController extends ApiController
         }
 
         $inv = Invitation::where('sender_id', auth()->user()->id)->where('internship_id',  auth()->user()->profile->internship->id)->first();
-
-        if($inv) {
+        $count = Profile::where('internship_id', auth()->user()->profile->internship->id)->get()->count();
+        if($inv || $count >= 2) { // max users in an internship
             return $this->invalidResponse(null, 'vous ne pouvez inviter qu\'un seul collègue');
         }
 
