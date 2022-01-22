@@ -7,7 +7,7 @@ use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class InvitationController extends Controller
+class InvitationController extends ApiController
 {
 
     public function store(User $user)
@@ -19,10 +19,16 @@ class InvitationController extends Controller
             return $this->invalidResponse(null, 'vous ne pouvez pas inviter un autre étudiant sans avoir de stage');
         }
 
+        $inv = Invitation::where('sender_id', auth()->user()->id)->where('internship_id',  auth()->user()->profile->internship->id)->first();
+
+        if($inv) {
+            return $this->invalidResponse(null, 'vous ne pouvez inviter qu\'un seul collègue');
+        }
+
         $invitation = Invitation::create([
             'sender_id' => auth()->user()->id,
             'receiver_id' => $user->id,
-            auth()->user()->profile->internship->id
+            'internship_id' => auth()->user()->profile->internship->id
         ]);
 
         return $this->successResponse($invitation);

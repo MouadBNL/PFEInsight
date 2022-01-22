@@ -5,6 +5,10 @@
             <n-button v-if="hasInternship" type="error" @click="quitInternship">
                 Quiter ce stage
             </n-button>
+
+            <n-button v-if="hasInternship" type="error" @click="">
+                Inviter un collègue
+            </n-button>
         </div>
         <div v-if="studentService.isLoading.value" class="h-96 flex items-center justify-center">
             <n-spin size="large"/>
