@@ -19,7 +19,7 @@ class ProfessorController extends ApiController
 
     public function show(User $user)
     {
-        $user->load('profile');
+        $user->load(['profile', 'internships', 'internships.company']);
         return $this->successResponse(
             new UserResource($user)
         );

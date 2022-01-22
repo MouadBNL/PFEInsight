@@ -58,7 +58,7 @@ const createColumns: any[] =  [
                 {
                     type: 'success',
                     onClick: () => {
-                        router.push({name: 'auth.admin.students.show', params: {id: row.id}})
+                        router.push({name: 'auth.admin.professors.show', params: {id: row.id}})
                     }
                 },
                 {default: () => 'Profile'}
@@ -70,7 +70,7 @@ const data = ref<User[]>([])
 
 
 onMounted(async () => {
-    let res = await professorService.getAllStudents()
+    let res = await professorService.getAllProfessors()
     data.value = res.data
     console.log(res.data)
 })

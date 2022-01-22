@@ -7,7 +7,7 @@ export class ProfessorApitService extends AbstractApiService
         super('/professors')
     }
 
-    public getAllStudents()
+    public getAllProfessors()
     {
         return this.http
         .get('')
@@ -15,7 +15,7 @@ export class ProfessorApitService extends AbstractApiService
         .catch(this.handleError.bind(this))
     }
 
-    public getStudent(id:string)
+    public getProfessor(id:string)
     {
         return this.http
         .get('/' + id)

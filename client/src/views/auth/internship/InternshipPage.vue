@@ -1,5 +1,4 @@
 <template>
-    <n-h1>Stage</n-h1>
     <template v-if="id">
         <display-internship-info :id="id" />
     </template>
