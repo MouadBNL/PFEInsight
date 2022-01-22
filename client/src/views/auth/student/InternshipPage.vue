@@ -6,7 +6,7 @@
                 Quiter ce stage
             </n-button>
 
-            <n-button v-if="hasInternship" type="error" @click="">
+            <n-button v-if="hasInternship" type="success" @click="showInviteModal = true">
                 Inviter un collègue
             </n-button>
         </div>
@@ -159,6 +159,10 @@
             </div>
         </div>
     </div>
+
+    <n-modal v-model:show="showInviteModal">
+        <InviteStudentModal @sent="showInviteModal = false"/>
+    </n-modal>
 </template>
 
 <script setup lang="ts">
@@ -167,6 +171,7 @@ import { useCompanyService } from '@/services/CompanyApiService'
 import { useTechnologyService } from '@/services/TechnologyApiService'
 import CreateCompanyModal from '@/components/CreateCompanyModal.vue'
 import CreateTechnologyModalVue from '@/components/CreateTechnologyModal.vue'
+import InviteStudentModal from '@/components/InviteStudentModal.vue'
 import { NH1, NCard, NSpin, NForm, NFormItem, NInput, NSelect, NButton, NModal, useMessage, NResult, NUpload, NSpace, useDialog } from 'naive-ui'
 import { h, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -181,6 +186,7 @@ const router = useRouter()
 const dialog = useDialog()
 const message = useMessage()
 const hasInternship = ref<boolean>(false)
+const showInviteModal = ref<boolean>(false)
 
 const formRef = ref<any>(null);
 const internship = ref<any>({

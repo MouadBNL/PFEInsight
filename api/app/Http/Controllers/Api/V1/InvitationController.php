@@ -13,8 +13,11 @@ class InvitationController extends ApiController
 
     public function store(User $user)
     {
+        if($user->id == auth()->user()->id){
+            return $this->invalidResponse(null, 'Vous ne peux pas vous inviter');
+        }
         if($user->role != 'student') {
-            return $this->invalidResponse(null, 'Vous ne pouvez inviter que des étudiants');
+            return $this->invalidResponse(null, 'Vous ne pouvez inviter que des étudiants' . $user->id);
         }
         if(!auth()->user()->profile->internship) {
             return $this->invalidResponse(null, 'vous ne pouvez pas inviter un autre étudiant sans avoir de stage');

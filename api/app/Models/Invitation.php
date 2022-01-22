@@ -10,6 +10,8 @@ class Invitation extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Get the sender that owns the Invitation
      *
