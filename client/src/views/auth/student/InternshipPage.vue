@@ -22,75 +22,133 @@
                     </router-link>
                 </template>
             </n-result>
-            <n-card v-else>
-
-
-                <n-form :model="internship" ref="formRef" :rules="internshipRules">
-                    <n-form-item path="title" label="Intitulé du sujet">
-                        <n-input v-model:value="internship.title" placeholder="Intitulé du sujet" />
-                    </n-form-item>
-                    <n-form-item path="description" label="Description">
-                        <n-input v-model:value="internship.description" type="textarea" placeholder="Description" />
-                    </n-form-item>
-                    <div class="grid grid-cols-2 gap-8">
-                        <n-form-item path="supervisor_name" label="Nom et le prénom de l'encadrant">
-                        <n-input v-model:value="internship.supervisor_name" placeholder="Nom et le prénom de l'encadrant" />
-                        </n-form-item><n-form-item path="supervisor_phone" label="Telephone de l'encadrant ">
-                            <n-input v-model:value="internship.supervisor_phone" placeholder="Telephone de l'encadrant " />
+            <div v-else>
+                <n-card class="mb-4">
+    
+    
+                    <n-form :model="internship" ref="formRef" :rules="internshipRules">
+                        <n-form-item path="title" label="Intitulé du sujet">
+                            <n-input v-model:value="internship.title" placeholder="Intitulé du sujet" />
                         </n-form-item>
-                    </div>
-
-                    <div class="flex items-center gap-8">
-                        <n-button @click="companyModal = true">
-                            Ajouter une entreprise
+                        <n-form-item path="description" label="Description">
+                            <n-input v-model:value="internship.description" type="textarea" placeholder="Description" />
+                        </n-form-item>
+                        <div class="grid grid-cols-2 gap-8">
+                            <n-form-item path="supervisor_name" label="Nom et le prénom de l'encadrant">
+                            <n-input v-model:value="internship.supervisor_name" placeholder="Nom et le prénom de l'encadrant" />
+                            </n-form-item><n-form-item path="supervisor_phone" label="Telephone de l'encadrant ">
+                                <n-input v-model:value="internship.supervisor_phone" placeholder="Telephone de l'encadrant " />
+                            </n-form-item>
+                        </div>
+    
+                        <div class="flex items-center gap-8">
+                            <n-button @click="companyModal = true">
+                                Ajouter une entreprise
+                            </n-button>
+                            <n-form-item path="company_id" label="Entreprise" class="w-full">
+                                <n-select 
+                                    v-model:value="internship.company_id"
+                                    :options="companiesOptions"
+                                    :render-label="renderCompanyLabel"
+                                    :render-tag="renderCompanyTag"
+                                    filterable
+                                />
+                            </n-form-item>
+                        </div>
+    
+                        <div class="flex items-center gap-8">
+                            <n-button @click="technologyModal = true">
+                                Ajouter une technologie
+                            </n-button>
+                            <n-form-item path="technologies" label="Technologies" class="w-full">
+                                <n-select 
+                                    v-model:value="internship.technologies"
+                                    :options="technologiesOptions"
+                                    multiple
+                                    filterable
+                                />
+                            </n-form-item>
+                        </div>
+    
+                        <n-button
+                            @click="updateInternship"
+                        >
+                            Mettre à jour
                         </n-button>
-                        <n-form-item path="company_id" label="Entreprise" class="w-full">
-                            <n-select 
-                                v-model:value="internship.company_id"
-                                :options="companiesOptions"
-                                :render-label="renderCompanyLabel"
-                                :render-tag="renderCompanyTag"
-                                filterable
-                            />
-                        </n-form-item>
+                    </n-form>
+                    <n-modal v-model:show="companyModal">
+                        <CreateCompanyModal
+                            @created="companyCreated"
+                        />
+                    </n-modal>
+    
+                    <n-modal v-model:show="technologyModal">
+                        <CreateTechnologyModalVue
+                            @created="technologieCreated"
+                        />
+                    </n-modal>
+    
+    
+    
+                </n-card>
+    
+                <n-card title="Upload des fichier">
+                    <div class="grid gap-4">
+                        
+                        <n-card>
+                            <n-h1>brouillon du rapport</n-h1>
+                            <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
+                            <n-upload
+                            style="display: inline-block;width: fit-content; height: fit-content;"
+                                :multiple="false"
+                                :customRequest="(data) => uploadFile('draft', data, 'Votre brouillon du rapport a été mise à jour')"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx"
+                            >
+                                <n-button :loading="internshipUploadService.isLoading.value">Upload du brouillon du rapport</n-button>
+                            </n-upload>
+                            <a v-if="internship.draft_report" :href="baseUrl + internship.draft_report" target="_blank">
+                                <NButton class="ml-4" type="success">Telecharger</NButton>
+                            </a>
+                            <!-- <n-button type="error" @click="deleteImage" :loading="uploadDraftService.isLoading.value" class="mb-2">Supprimer mon image</n-button> -->
+                        </n-card>
+                        
+                        <n-card>
+                            <n-h1>Version final du rapport</n-h1>
+                            <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
+                            <n-upload
+                            style="display: inline-block;width: fit-content; height: fit-content;"
+                                :multiple="false"
+                                :customRequest="(data) => uploadFile('final', data, 'Votre rapport a été mise à jour')"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx"
+                            >
+                                <n-button :loading="internshipUploadService.isLoading.value">Upload du version final du rapport</n-button>
+                            </n-upload>
+                            <a v-if="internship.final_report" :href="baseUrl + internship.final_report" target="_blank">
+                                <NButton class="ml-4" type="success">Telecharger</NButton>
+                            </a>
+                            <!-- <n-button type="error" @click="deleteImage" :loading="uploadDraftService.isLoading.value" class="mb-2">Supprimer mon image</n-button> -->
+                        </n-card>
+                        
+                        <n-card>
+                            <n-h1>Présentation du rapport</n-h1>
+                            <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
+                            <n-upload
+                            style="display: inline-block;width: fit-content; height: fit-content;"
+                                :multiple="false"
+                                :customRequest="(data) => uploadFile('presentation', data, 'Votre présentation a été mise à jour')"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx"
+                            >
+                                <n-button :loading="internshipUploadService.isLoading.value">Upload de la présentation du rapport</n-button>
+                            </n-upload>
+                            <a v-if="internship.presentation" :href="baseUrl + internship.presentation" target="_blank">
+                                <NButton class="ml-4" type="success">Telecharger</NButton>
+                            </a>
+                            <!-- <n-button type="error" @click="deleteImage" :loading="uploadDraftService.isLoading.value" class="mb-2">Supprimer mon image</n-button> -->
+                        </n-card>
+
                     </div>
-
-                    <div class="flex items-center gap-8">
-                        <n-button @click="technologyModal = true">
-                            Ajouter une technologie
-                        </n-button>
-                        <n-form-item path="technologies" label="Technologies" class="w-full">
-                            <n-select 
-                                v-model:value="internship.technologies"
-                                :options="technologiesOptions"
-                                multiple
-                                filterable
-                            />
-                        </n-form-item>
-                    </div>
-
-                    <n-button
-                        @click="updateInternship"
-                    >
-                        Mettre à jour
-                    </n-button>
-                </n-form>
-                <n-modal v-model:show="companyModal">
-                    <CreateCompanyModal
-                        @created="companyCreated"
-                    />
-                </n-modal>
-
-                <n-modal v-model:show="technologyModal">
-                    <CreateTechnologyModalVue
-                        @created="technologieCreated"
-                    />
-                </n-modal>
-                <pre>{{internship}}</pre>
-
-
-
-            </n-card>
+                </n-card>
+            </div>
         </div>
     </div>
 </template>
@@ -101,12 +159,14 @@ import { useCompanyService } from '@/services/CompanyApiService'
 import { useTechnologyService } from '@/services/TechnologyApiService'
 import CreateCompanyModal from '@/components/CreateCompanyModal.vue'
 import CreateTechnologyModalVue from '@/components/CreateTechnologyModal.vue'
-import { NH1, NCard, NSpin, NForm, NFormItem, NInput, NSelect, NButton, NModal, useMessage, NResult } from 'naive-ui'
+import { NH1, NCard, NSpin, NForm, NFormItem, NInput, NSelect, NButton, NModal, useMessage, NResult, NUpload } from 'naive-ui'
 import { h, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useInternshipService } from '@/services/InternshipApiService'
+import { baseUrl } from '@/services/dataService'
 const studentService = useStudentService()
 const internshipService = useInternshipService()
+const internshipUploadService = useInternshipService()
 const companyService = useCompanyService()
 const technologyService = useTechnologyService()
 const router = useRouter()
@@ -296,4 +356,36 @@ const updateInternship = (e:any) => {
         }
     })
 }
+
+
+// Upload files
+
+const uploadFile = async (key: string, {file}: any, msg:string = 'ok') => {
+    message.info('Uploading...')
+    const formData = new FormData()
+    formData.append(key, file.file);
+    internshipUploadService.uploadFile(key, formData)
+    .then( async (res) => {
+        message.success(msg)
+        const profile = await studentService.getProfile()
+        if (profile.data.internship != null) {
+            hasInternship.value = true
+        }
+        // internship.value = (await internshipService.get(profile.data.internship.id)).data
+        internship.value = profile.data.internship
+        if(Array.isArray(internship.value.technologies)){
+            internship.value.technologies = internship.value.technologies.map((tec:any) => {
+                return tec.id
+            })
+        }
+    }).finally(()=>{
+        // rerenderKey.value ++;
+    })
+}
 </script>
+
+<style>
+.n-upload-file-list {
+    display: none !important;
+}
+</style>

@@ -32,9 +32,8 @@
         <TheAuthLayoutSidebar />
       </n-layout-sider>
       <n-layout content-style="padding: 24px;" :native-scrollbar="false" class="bg-gray-50">
-
         <main class="container mx-auto">
-          <router-view></router-view>
+          <router-view :key="route.fullPath"></router-view>
         </main>
 
       </n-layout>
@@ -54,9 +53,10 @@ import TheAuthLayoutSidebar from './TheAuthLayoutSidebar.vue'
 import { NLayout, NLayoutHeader, NLayoutSider, NButton, NLayoutFooter, useMessage, useLoadingBar } from "naive-ui"
 import { useAuthStore } from "@/store/useAuthStore"
 import { onMounted } from "vue"
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useAuthService } from "@/services/AuthApiService"
 const authStore = useAuthStore()
+const route = useRoute()
 const authService = useAuthService()
 const message = useMessage()
 const loadingBar = useLoadingBar()

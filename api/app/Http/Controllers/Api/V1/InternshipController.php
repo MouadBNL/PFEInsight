@@ -177,7 +177,7 @@ class InternshipController extends ApiController
             return $this->successResponse();
         }
 
-        $name = Str::random(20) . '_draft_' . request()->draft->getClientOriginalName() . '.' . request()->draft->extension();
+        $name = $this->generateFileName(request()->draft);
         request()->draft->storeAs(
             'public/reports',
             $name
@@ -203,7 +203,7 @@ class InternshipController extends ApiController
             return $this->successResponse();
         }
 
-        $name = Str::random(20) . '_final_' . request()->final->getClientOriginalName() . '.' . request()->final->extension();
+        $name = $this->generateFileName(request()->final);
         request()->final->storeAs(
             'public/reports',
             $name
@@ -229,7 +229,7 @@ class InternshipController extends ApiController
             return $this->successResponse();
         }
 
-        $name = Str::random(20) . '_' . request()->presentation->getClientOriginalName() . '.' . request()->presentation->extension();
+        $name = $this->generateFileName(request()->presentation);
         request()->presentation->storeAs(
             'public/presentations',
             $name
@@ -240,5 +240,11 @@ class InternshipController extends ApiController
         return $this->successResponse([
             'presentation' => env('APP_URL') . "storage/presentations/$name"
         ]);
+    }
+
+
+    protected function generateFileName($file)
+    {
+        return Str::random(20) . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
     }
 }
