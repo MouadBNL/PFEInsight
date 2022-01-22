@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div class="">
+        <div class="flex items-center gap-8">
             <h1>Mon stage</h1>
-
+            <n-button v-if="hasInternship" type="error" @click="quitInternship">
+                Quiter ce stage
+            </n-button>
         </div>
         <div v-if="studentService.isLoading.value" class="h-96 flex items-center justify-center">
             <n-spin size="large"/>
@@ -69,12 +71,14 @@
                                 />
                             </n-form-item>
                         </div>
-    
-                        <n-button
-                            @click="updateInternship"
-                        >
-                            Mettre à jour
-                        </n-button>
+
+                        <n-space>
+                            <n-button
+                                @click="updateInternship"
+                            >
+                                Mettre à jour
+                            </n-button>
+                        </n-space>
                     </n-form>
                     <n-modal v-model:show="companyModal">
                         <CreateCompanyModal
@@ -159,7 +163,7 @@ import { useCompanyService } from '@/services/CompanyApiService'
 import { useTechnologyService } from '@/services/TechnologyApiService'
 import CreateCompanyModal from '@/components/CreateCompanyModal.vue'
 import CreateTechnologyModalVue from '@/components/CreateTechnologyModal.vue'
-import { NH1, NCard, NSpin, NForm, NFormItem, NInput, NSelect, NButton, NModal, useMessage, NResult, NUpload } from 'naive-ui'
+import { NH1, NCard, NSpin, NForm, NFormItem, NInput, NSelect, NButton, NModal, useMessage, NResult, NUpload, NSpace, useDialog } from 'naive-ui'
 import { h, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useInternshipService } from '@/services/InternshipApiService'
@@ -170,6 +174,7 @@ const internshipUploadService = useInternshipService()
 const companyService = useCompanyService()
 const technologyService = useTechnologyService()
 const router = useRouter()
+const dialog = useDialog()
 const message = useMessage()
 const hasInternship = ref<boolean>(false)
 
@@ -380,6 +385,20 @@ const uploadFile = async (key: string, {file}: any, msg:string = 'ok') => {
         }
     }).finally(()=>{
         // rerenderKey.value ++;
+    })
+}
+
+const quitInternship = async () => {
+    dialog.warning({
+        title: 'Quiter votre stage actuel stage',
+        content: 'Êtes-vous sûr de vouloir quitter votre stage actuel ?',
+        positiveText: 'Oui',
+        negativeText: 'Non, anuller',
+        onPositiveClick: async () => {
+            await internshipService.quit()
+            internship.value = null
+            hasInternship.value = false
+        }
     })
 }
 </script>

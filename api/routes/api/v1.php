@@ -87,6 +87,8 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::post('internships/draft', [InternshipController::class, 'uploadDraft']);
     Route::post('internships/final', [InternshipController::class, 'uploadFinal']);
     Route::post('internships/presentation', [InternshipController::class, 'uploadPresentation']);
+
+    Route::delete('internships/quit', [InternshipController::class, 'quit']);
 });
 
 // Proffesor actions only

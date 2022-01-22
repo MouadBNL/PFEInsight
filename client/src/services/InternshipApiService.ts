@@ -74,32 +74,19 @@ export class InternshipApiService extends AbstractApiService
             .catch(this.handleError.bind(this))
     }
 
-    public uploadDraft(formData:any)
-    {
-        return this.http
-        .post('/draft', formData)
-        .catch(this.handleError.bind(this))
-    }   
-
-    public uploadFinal(formData:any)
-    {
-        return this.http
-        .post('/final', formData)
-        .catch(this.handleError.bind(this))
-    }   
-
-    public uploadPresentation(formData:any)
-    {
-        return this.http
-        .post('/presentation', formData)
-        .catch(this.handleError.bind(this))
-    }  
     public uploadFile(key:string, formData:any)
     {
         return this.http
         .post('/' + key, formData)
         .catch(this.handleError.bind(this))
     }   
+
+    public quit()
+    {
+        return this.http
+        .delete('/quit')
+        .catch(this.handleError.bind(this))
+    }
 }
 
 export function useInternshipService(): InternshipApiService

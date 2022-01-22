@@ -242,6 +242,15 @@ class InternshipController extends ApiController
         ]);
     }
 
+    public function quit()
+    {
+        auth()->user()->profile->update([
+            'internship_id' => null
+        ]);
+
+        return $this->successResponse();
+    }
+
 
     protected function generateFileName($file)
     {
