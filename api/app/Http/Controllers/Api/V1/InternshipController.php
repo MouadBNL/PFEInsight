@@ -6,6 +6,8 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
 use App\Models\Internship;
+use App\Models\Invitation;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class InternshipController extends ApiController

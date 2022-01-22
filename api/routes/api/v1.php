@@ -6,9 +6,11 @@ use App\Http\Controllers\Api\V1\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\CompanyController;
 use App\Http\Controllers\Api\V1\InternshipController;
+use App\Http\Controllers\Api\V1\InvitationController;
 use App\Http\Controllers\Api\V1\StudentProfileController;
 use App\Http\Controllers\Api\V1\TechnologyController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Models\Internship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -89,6 +91,8 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::post('internships/presentation', [InternshipController::class, 'uploadPresentation']);
 
     Route::delete('internships/quit', [InternshipController::class, 'quit']);
+
+    Route::post('invite', [InvitationController::class, 'store']);
 });
 
 // Proffesor actions only

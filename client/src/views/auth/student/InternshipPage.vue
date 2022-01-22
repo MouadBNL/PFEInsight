@@ -100,7 +100,7 @@
                     <div class="grid gap-4">
                         
                         <n-card>
-                            <n-h1>brouillon du rapport</n-h1>
+                            <n-h1>Brouillon du rapport</n-h1>
                             <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
                             <n-upload
                             style="display: inline-block;width: fit-content; height: fit-content;"
