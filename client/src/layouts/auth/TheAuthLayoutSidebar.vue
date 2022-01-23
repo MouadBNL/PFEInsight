@@ -106,6 +106,19 @@ const menuOptions = [
     },
     {
         label: () => h(
+            resolveComponent('router-link') as any,
+            {
+                to: {
+                    name: 'auth.students.invitations'
+                }
+            },
+            { default: () => 'Invitations'}
+        ),
+        key: 'invitations',
+        roles:['student']
+    },
+    {
+        label: () => h(
              resolveComponent('router-link') as any,
             {
                 to: {

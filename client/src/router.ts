@@ -110,6 +110,11 @@ const router = createRouter({
                             path: 'internship/create',
                             component: () => import('@/views/auth/student/CreateInternshipPage.vue'),
                             name: 'auth.students.internship.create'
+                        },
+                        {
+                            path: 'invitations',
+                            component: () => import('@/views/auth/student/ShowInvitationsPage.vue'),
+                            name: 'auth.students.invitations'
                         }
                     ]
                 },

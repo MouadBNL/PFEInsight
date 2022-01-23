@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::delete('internships/quit', [InternshipController::class, 'quit']);
 
     Route::get('invitations', [InvitationController::class, 'index']);
-    Route::post('invites/{user}', [InvitationController::class, 'store']);
+    Route::post('invite/{user}', [InvitationController::class, 'store']);
     Route::delete('invitations/{invitation}', [InvitationController::class, 'destroy']);
     Route::put('invitations/{invitation}', [InvitationController::class, 'accept']);
 });

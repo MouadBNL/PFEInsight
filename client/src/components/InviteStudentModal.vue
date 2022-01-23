@@ -106,7 +106,7 @@ const sendInvite = async () => {
         message.success('Invitation envoyée')
         emit('sent')
     } catch (err) {
-        message.error('une erreur s\'est produite, réessayez plus tard')
+        // message.error('une erreur s\'est produite, réessayez plus tard')
     }
 }
 </script>

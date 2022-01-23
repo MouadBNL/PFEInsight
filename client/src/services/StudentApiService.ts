@@ -41,7 +41,7 @@ export class StudentApitService extends AbstractApiService
     {
         return this.http
         .post('/invite/' + id)
-        .catch(this.handleError)
+        .catch(this.handleError.bind(this))
     }
 }
 

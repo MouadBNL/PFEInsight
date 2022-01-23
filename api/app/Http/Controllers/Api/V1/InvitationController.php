@@ -59,7 +59,7 @@ class InvitationController extends ApiController
         }
 
         if(auth()->user()->profile->internship) {
-            return $this->invalidResponse('vous devez quitter votre stage actuel avant d\'accepter une invitation');
+            return $this->invalidResponse(null, 'vous devez quitter votre stage actuel avant d\'accepter une invitation');
         }
 
         auth()->user()->profile->update([

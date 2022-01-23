@@ -13,7 +13,7 @@ trait ApiResponder {
 		], $code);
 	}
 
-    protected function invalidResponse($data = null, $message = null, $code = 404)
+    protected function invalidResponse($data = null, $message = null, $code = 400)
 	{
 		return response()->json([
 			'status'=> 'invalid', 

@@ -2,7 +2,6 @@ import { ref } from 'vue'
 import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { useMessage, MessageApi, commonDark, useLoadingBar } from 'naive-ui'
-import { useRouter } from 'vue-router'
 
 export function isAxiosError(value: any): value is AxiosError {
     return typeof value?.response == 'object'
@@ -102,8 +101,8 @@ export abstract class AbstractApiService
                         console.log(error.response.data.message)
                         this.message.error(error.response.data.message)
                         if(error.response.data.message == 'Unauthenticated.'){
-                            const router = useRouter()
-                            router.push({name: 'login'})
+                            console.log('redirecting to login')
+                            window.location.reload();
                         }
                     }
                     else if(error.response.data?.status){
