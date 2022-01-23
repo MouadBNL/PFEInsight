@@ -37,5 +37,31 @@ class InvitationController extends ApiController
 
         return $this->successResponse($invitation);
     }
+
+    public function destroy(Invitation $invitation)
+    {
+        $invitation->delete();
+        return $this->successResponse();
+    }
+
+
+    public function accept(Invitation $invitation)
+    {
+        if($invitation->receiver->id != auth()->user()->id){
+            return $this->invalidResponse(null, 'Invitation introuvable');
+        }
+
+        if(auth()->user()->profile->internship) {
+            return $this->invalidResponse('vous devez quitter votre stage actuel avant d\'accepter une invitation');
+        }
+
+        auth()->user()->profile->update([
+            'internship_id' => $invitation->internship->id
+        ]);
+
+        $invitation->delete();
+
+        return $this->successResponse();
+    }
     
 }
