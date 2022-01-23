@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 class InvitationController extends ApiController
 {
 
+    public function index()
+    {
+        return $this->successResponse(
+            Invitation::where('receiver_id', auth()->user()->id)
+        );
+    }
+
     public function store(User $user)
     {
         if($user->id == auth()->user()->id){
