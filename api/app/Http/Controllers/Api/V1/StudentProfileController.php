@@ -9,7 +9,9 @@ class StudentProfileController extends ApiController
     public function index()
     {
         return $this->successResponse( new StudentResource(
-            User::with(['profile', 'profile.internship', 'profile.internship.technologies'])->where('id', auth()->user()->id)->firstOrFail()
+            User::with(
+                ['profile', 'profile.internship', 'profile.internship.technologies', 'profile.internship.students', 'profile.internship.students.user']
+                )->where('id', auth()->user()->id)->firstOrFail()
         ));
     }
 

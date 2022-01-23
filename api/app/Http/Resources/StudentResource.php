@@ -14,7 +14,7 @@ class StudentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data =  [
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -29,6 +29,20 @@ class StudentResource extends JsonResource
             'birthday' => $this->profile->birthday,
             'internship' => $this->profile ? $this->profile->internship : null,
         ];
+        if($data['internship'] && $data['internship']['students']){
+            $data['internship']['colleagues'] = $data['internship']['students']->map(function ($student) {
+                return [
+                    'apogee' => $student->apogee,
+                    'first_name' => $student->user->first_name,
+                    'last_name' => $student->user->last_name,
+                    'profile_picture' =>$student->user->profile_picture 
+                                        ? env('APP_URL') . $student->user->profile_picture
+                                        : 'https://ui-avatars.com/api/?name='. $student->user->first_name. '+'.$student->user->last_name.'&rounded=true&bold=true',
+                ];
+            });
+
+        }
+        return $data;
         return parent::toArray($request);
     }
 }

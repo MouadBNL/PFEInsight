@@ -6,7 +6,7 @@
                 Quiter ce stage
             </n-button>
 
-            <n-button v-if="hasInternship" type="success" @click="showInviteModal = true">
+            <n-button v-if="hasInternship && Array.isArray(internship.colleagues) && internship.colleagues.length < 2" type="success" @click="showInviteModal = true">
                 Inviter un collègue
             </n-button>
         </div>
@@ -29,6 +29,19 @@
                 </template>
             </n-result>
             <div v-else>
+
+                <div class="my-4 grid grid-cols-2 gap-4">
+                    <n-card v-for="student in internship.colleagues">
+                        <div class="m-2 p2 flex items-center gap-4">
+                                <img :src="student.profile_picture" class="h-10 w-10 rounded-full" />
+                            <div>
+                                {{ student.first_name }} {{ student.last_name }}
+                                <span class="block text-gray-400">{{ student.apogee }}</span>
+                            </div>
+                        </div>
+                    </n-card>
+                </div>
+
                 <n-card class="mb-4">
     
     
@@ -163,6 +176,8 @@
     <n-modal v-model:show="showInviteModal">
         <InviteStudentModal @sent="showInviteModal = false"/>
     </n-modal>
+
+    <pre>{{internship}}</pre>
 </template>
 
 <script setup lang="ts">
