@@ -84,11 +84,16 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::get('profile', [StudentProfileController::class, 'index']);
     Route::put('profile', [StudentProfileController::class, 'update']);
 
+    Route::post('internships/certificate', [InternshipController::class, 'uploadCertificate']);
+    Route::post('internships/scorecard', [InternshipController::class, 'uploadScorecard']);
+
     Route::post('internships', [InternshipController::class, 'store']);
     Route::put('internships', [InternshipController::class, 'update']);
     Route::post('internships/draft', [InternshipController::class, 'uploadDraft']);
     Route::post('internships/final', [InternshipController::class, 'uploadFinal']);
     Route::post('internships/presentation', [InternshipController::class, 'uploadPresentation']);
+
+
 
     Route::delete('internships/quit', [InternshipController::class, 'quit']);
 

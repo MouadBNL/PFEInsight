@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Support\Str;
 use App\Http\Resources\StudentResource;
 use App\Models\User;
 class StudentProfileController extends ApiController
@@ -27,5 +28,62 @@ class StudentProfileController extends ApiController
         auth()->user()->profile()->update($data);
 
         return $this->successResponse();
+    }
+
+    public function uploadCertificate()
+    {
+        request()->validate([
+            'file' => ['present', 'nullable', 'file', 'max:40960']
+        ]);
+
+        $user = auth()->user();
+
+        if(!request()->file){
+            $user->update(['certificate' => null]);
+            return $this->successResponse();
+        }
+
+        $name = $this->generateFileName(request()->file);
+        request()->file->storeAs(
+            'public/certificates',
+            $name
+        );
+        $user->update([
+            'certificate' => env('APP_URL') . "/storage/certificates/$name"
+        ]);
+        return $this->successResponse([
+            'certificate' => env('APP_URL') . "storage/certificates/$name"
+        ]);
+    }
+
+    public function uploadScorecard()
+    {
+        request()->validate([
+            'file' => ['present', 'nullable', 'file', 'max:40960']
+        ]);
+
+        $user = auth()->user();
+
+        if(!request()->file){
+            $user->update(['scorecard' => null]);
+            return $this->successResponse();
+        }
+
+        $name = $this->generateFileName(request()->file);
+        request()->file->storeAs(
+            'public/scorecards',
+            $name
+        );
+        $user->update([
+            'scorecard' => env('APP_URL') . "/storage/scorecards/$name"
+        ]);
+        return $this->successResponse([
+            'scorecard' => env('APP_URL') . "storage/scorecards/$name"
+        ]);
+    }
+
+    protected function generateFileName($file)
+    {
+        return Str::random(20) . '_' . auth()->user()->profile->apogee . '_' . auth()->user()->first_name . '_' . auth()->user()->last_name . '.' . $file->getClientOriginalExtension();
     }
 }
