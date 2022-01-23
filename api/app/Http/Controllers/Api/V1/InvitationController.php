@@ -14,7 +14,7 @@ class InvitationController extends ApiController
     public function index()
     {
         return $this->successResponse(
-            Invitation::where('receiver_id', auth()->user()->id)
+            Invitation::with(['internship', 'sender', 'receiver'])->where('receiver_id', auth()->user()->id)->get()
         );
     }
 
