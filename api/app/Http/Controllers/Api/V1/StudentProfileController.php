@@ -33,13 +33,13 @@ class StudentProfileController extends ApiController
     public function uploadCertificate()
     {
         request()->validate([
-            'file' => ['present', 'nullable', 'file', 'max:40960']
+            'file' => ['present', 'nullable', 'file', 'max:40960', 'mimes:pdf,doc,docx,ppt,pptx']
         ]);
 
         $user = auth()->user();
 
         if(!request()->file){
-            $user->update(['certificate' => null]);
+            $user->profile->update(['certificate' => null]);
             return $this->successResponse();
         }
 
@@ -48,8 +48,8 @@ class StudentProfileController extends ApiController
             'public/certificates',
             $name
         );
-        $user->update([
-            'certificate' => env('APP_URL') . "/storage/certificates/$name"
+        $user->profile->update([
+            'certificate' => env('APP_URL') . "storage/certificates/$name"
         ]);
         return $this->successResponse([
             'certificate' => env('APP_URL') . "storage/certificates/$name"
@@ -59,13 +59,13 @@ class StudentProfileController extends ApiController
     public function uploadScorecard()
     {
         request()->validate([
-            'file' => ['present', 'nullable', 'file', 'max:40960']
+            'file' => ['present', 'nullable', 'file', 'max:40960', 'mimes:pdf,doc,docx,ppt,pptx']
         ]);
 
         $user = auth()->user();
 
         if(!request()->file){
-            $user->update(['scorecard' => null]);
+            $user->profile->update(['scorecard' => null]);
             return $this->successResponse();
         }
 
@@ -74,8 +74,8 @@ class StudentProfileController extends ApiController
             'public/scorecards',
             $name
         );
-        $user->update([
-            'scorecard' => env('APP_URL') . "/storage/scorecards/$name"
+        $user->profile->update([
+            'scorecard' => env('APP_URL') . "storage/scorecards/$name"
         ]);
         return $this->successResponse([
             'scorecard' => env('APP_URL') . "storage/scorecards/$name"

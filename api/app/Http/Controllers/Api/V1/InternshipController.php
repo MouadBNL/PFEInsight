@@ -169,7 +169,7 @@ class InternshipController extends ApiController
     public function uploadDraft()
     {
         request()->validate([
-            'draft' => ['present', 'nullable', 'file', 'max:40960']
+            'draft' => ['present', 'nullable', 'file', 'max:40960', 'mimes:pdf,doc,docx,ppt,pptx']
         ]);
 
         $internship = auth()->user()->profile->internship;
@@ -195,7 +195,7 @@ class InternshipController extends ApiController
     public function uploadFinal()
     {
         request()->validate([
-            'final' => ['present', 'nullable', 'file', 'max:40960']
+            'final' => ['present', 'nullable', 'file', 'max:40960', 'mimes:pdf,doc,docx,ppt,pptx']
         ]);
 
         $internship = auth()->user()->profile->internship;
@@ -221,7 +221,7 @@ class InternshipController extends ApiController
     public function uploadPresentation()
     {
         request()->validate([
-            'presentation' => ['present', 'nullable', 'file', 'max:40960']
+            'presentation' => ['present', 'nullable', 'file', 'max:40960', 'mimes:pdf,doc,docx,ppt,pptx']
         ]);
 
         $internship = auth()->user()->profile->internship;

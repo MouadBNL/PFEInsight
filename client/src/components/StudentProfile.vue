@@ -1,5 +1,5 @@
 <template>
-    <n-card title="Information profil">
+    <n-card title="Information profil" class="mb-4">
         <n-form :model="profile" ref="profileForm" :rules="profileRules">
             <div class="flex gap-8">
                 <n-form-item path="profile.apogee" label="Apogee" class="w-1/2">
@@ -22,16 +22,51 @@
             </div>
         </n-form>
     </n-card>
+
+
+    <div class="grid grid-cols-2 gap-4" :key="uploadKey">
+        <n-card>
+            <n-h1>Certification de stage</n-h1>
+            <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
+            <n-upload
+            style="display: inline-block;width: fit-content; height: fit-content;"
+                :multiple="false"
+                :customRequest="(data:any) => uploadFile('certificate', data, 'Votre certification a été mise à jour')"
+                accept=".pdf,.doc,.docx,.ppt,.pptx"
+            >
+                <n-button :loading="studentService.isLoading.value">Upload de la présentation du rapport</n-button>
+            </n-upload>
+            <a v-if="profile.profile.certificate" :href="profile.profile.certificate" target="_blank">
+                <NButton class="ml-4" type="success">Telecharger</NButton>
+            </a>
+        </n-card>
+        <n-card>
+            <n-h1>Fiche d'évaluation de stage</n-h1>
+            <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
+            <n-upload
+            style="display: inline-block;width: fit-content; height: fit-content;"
+                :multiple="false"
+                :customRequest="(data:any) => uploadFile('scorecard', data, 'Votre certification a été mise à jour')"
+                accept=".pdf,.doc,.docx,.ppt,.pptx"
+            >
+                <n-button :loading="studentService.isLoading.value">Upload de la présentation du rapport</n-button>
+            </n-upload>
+            <a v-if="profile.profile.scorecard" :href="profile.profile.scorecard" target="_blank">
+                <NButton class="ml-4" type="success">Telecharger</NButton>
+            </a>
+        </n-card>
+    </div>
 </template>
 
 <script setup lang="ts">
 import { useStudentService } from '@/services/StudentApiService';
 import { UserApiService } from '@/services/UserApiService';
-import { NDatePicker, NCard, NButton, NForm,NFormItem,NInput, NSelect, useMessage } from 'naive-ui'
+import { NDatePicker, NCard, NButton, NForm,NFormItem,NInput, NSelect, useMessage, NUpload,NH1 } from 'naive-ui'
 import { onMounted, reactive, ref } from 'vue';
 
 const studentService = useStudentService()
 const message = useMessage()
+const uploadKey = ref(0)
 
 const sexOptions = [{label: 'Homme', value:'male'}, {label:'Femmes',value:'female'}]
 const fieldOprions = [
@@ -97,6 +132,8 @@ const profile = reactive({
         field: undefined,
         profile_picture: undefined,
         sex: undefined,
+        certificate: undefined,
+        scorecard: undefined,
     }
 })
 
@@ -123,6 +160,10 @@ const handleUpdateProfile = () => {
 }
 
 onMounted(async () => {
+    await refreshProfile()
+})
+
+const refreshProfile = async () => {
     try {
         let data = await studentService.getProfile()
         profile.user = {
@@ -141,10 +182,32 @@ onMounted(async () => {
             birthday: data.data.birthday ? (new Date(data.data.birthday)).getTime() as any : null,
             field: data.data.field,
             profile_picture: data.data.profile_picture,
-            sex: data.data.sex
+            sex: data.data.sex,
+            certificate: data.data.certificate,
+            scorecard: data.data.scorecard
         }
     } catch (err) {
 
     }
-})
+}
+
+const uploadFile = async (key: "certificate"|"scorecard", {file}: any, msg:string = 'ok') => {
+    message.info('Uploading...')
+    const formData = new FormData()
+    formData.append('file', file.file);
+    studentService.uploadFile(key, formData)
+    .then( async (res) => {
+        message.success(msg)
+    }).finally(async ()=>{
+        uploadKey.value++
+        await refreshProfile()
+    })
+}
 </script>
+
+
+<style>
+.n-upload-file-list {
+    display: none !important;
+}
+</style>

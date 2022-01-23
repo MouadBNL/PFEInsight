@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { useStudentService } from '@/services/StudentApiService';
 import { UserApiService } from '@/services/UserApiService';
-import { NH1,NTag, NDatePicker, NCard, NButton, NForm,NFormItem,NInput, NSelect, useDialog, useMessage } from 'naive-ui'
+import { NH1,NTag, NDatePicker, NCard, NButton, NForm,NFormItem,NInput, NSelect, NUpload, useMessage } from 'naive-ui'
 import { onMounted, reactive, ref } from 'vue';
 import UserCredentials from '@/components/UserCredentials.vue';
 
@@ -110,6 +110,8 @@ const profile = reactive({
         field: undefined,
         profile_picture: undefined,
         sex: undefined,
+        certificate: undefined,
+        scorecard: undefined,
     }
 })
 
@@ -154,10 +156,31 @@ onMounted(async () => {
             birthday: data.data.birthday ? (new Date(data.data.birthday)).getTime() as any : null,
             field: data.data.field,
             profile_picture: data.data.profile_picture,
-            sex: data.data.sex
+            sex: data.data.sex,
+            certificate: data.data.certificate,
+            scorecard: data.data.scorecard
         }
     } catch (err) {
 
     }
 })
+
+const uploadFile = async (key: "certificate"|"scorecard", {file}: any, msg:string = 'ok') => {
+    message.info('Uploading...')
+    const formData = new FormData()
+    formData.append(key, file.file);
+    studentService.uploadFile(key, formData)
+    .then( async (res) => {
+        message.success(msg)
+    }).finally(()=>{
+        // rerenderKey.value ++;
+    })
+}
 </script>
+
+
+<style>
+.n-upload-file-list {
+    display: none !important;
+}
+</style>

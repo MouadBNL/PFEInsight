@@ -27,6 +27,8 @@ class StudentResource extends JsonResource
             'apogee' => $this->profile->apogee,
             'field' => $this->profile->field,
             'birthday' => $this->profile->birthday,
+            'certificate' => $this->profile->certificate,
+            'scorecard' => $this->profile->scorecard,
             'internship' => $this->profile ? $this->profile->internship : null,
         ];
         if($data['internship'] && $data['internship']['students']){

@@ -43,6 +43,14 @@ export class StudentApitService extends AbstractApiService
         .post('/invite/' + id)
         .catch(this.handleError.bind(this))
     }
+
+
+    public uploadFile(key:"certificate"|"scorecard" ,formData:any)
+    {
+        return this.http
+        .post('/profile/' + key, formData)
+        .catch(this.handleError.bind(this))
+    }
 }
 
 export function useStudentService(): StudentApitService

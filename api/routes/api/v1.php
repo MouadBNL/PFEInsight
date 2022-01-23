@@ -84,8 +84,8 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::get('profile', [StudentProfileController::class, 'index']);
     Route::put('profile', [StudentProfileController::class, 'update']);
 
-    Route::post('internships/certificate', [InternshipController::class, 'uploadCertificate']);
-    Route::post('internships/scorecard', [InternshipController::class, 'uploadScorecard']);
+    Route::post('profile/certificate', [StudentProfileController::class, 'uploadCertificate']);
+    Route::post('profile/scorecard', [StudentProfileController::class, 'uploadScorecard']);
 
     Route::post('internships', [InternshipController::class, 'store']);
     Route::put('internships', [InternshipController::class, 'update']);

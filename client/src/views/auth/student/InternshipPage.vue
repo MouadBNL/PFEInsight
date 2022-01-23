@@ -114,7 +114,7 @@
                 </n-card>
     
                 <n-card title="Upload des fichier">
-                    <div class="grid gap-4">
+                    <div class="grid gap-4" :key="uploadKey">
                         
                         <n-card>
                             <n-h1>Brouillon du rapport</n-h1>
@@ -203,6 +203,7 @@ const message = useMessage()
 const hasInternship = ref<boolean>(false)
 const showInviteModal = ref<boolean>(false)
 
+const uploadKey = ref(0)
 const formRef = ref<any>(null);
 const internship = ref<any>({
     title: '',
@@ -409,7 +410,7 @@ const uploadFile = async (key: string, {file}: any, msg:string = 'ok') => {
             })
         }
     }).finally(()=>{
-        // rerenderKey.value ++;
+        uploadKey.value ++;
     })
 }
 
