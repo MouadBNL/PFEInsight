@@ -62,6 +62,6 @@ class ExportController extends Controller
 
         $students = collect($students);
 
-        return fastexcel($students)->download('students.xlsx');
+        return fastexcel($students)->download('liste_etudiants.xlsx');
     }
 }
