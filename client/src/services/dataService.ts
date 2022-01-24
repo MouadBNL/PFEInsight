@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8000/'
+const baseUrl = import.meta.env.VITE_APP_URL
 
 export {
     baseUrl
