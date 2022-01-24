@@ -33,7 +33,7 @@ export class UserApiService extends AbstractApiService
         .catch(this.handleError.bind(this))
     }
 
-    public delete(id:number) {
+    public delete(id:string) {
         return this.http
         .delete('' + id)
         .then(this.handleResponse.bind(this))

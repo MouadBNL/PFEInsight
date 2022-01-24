@@ -114,7 +114,7 @@ import { baseUrl } from '@/services/dataService'
 
 const authStore = useAuthStore()
 const internshipService = useInternshipService()
-const props = defineProps<{id: number}>()
+const props = defineProps<{id: string}>()
 const internship = ref<any>(null)
 const score = ref(0)
 

@@ -15,7 +15,7 @@ export class InternshipApiService extends AbstractApiService
             .catch(this.handleError.bind(this))
     }
 
-    public get(id:number)
+    public get(id:string)
     {
         return this.http
             .get('/' + id)
@@ -37,35 +37,35 @@ export class InternshipApiService extends AbstractApiService
             .catch(this.handleError.bind(this))
     }
 
-    public supervise(id: number) {
+    public supervise(id: string) {
         return this.http
             .put('/' + String(id) + '/supervise')
             .then(this.handleResponse.bind(this))
             .catch(this.handleError.bind(this))
     }
 
-    public unsupervise(id: number) {
+    public unsupervise(id: string) {
         return this.http
             .put('/' + String(id) + '/unsupervise')
             .then(this.handleResponse.bind(this))
             .catch(this.handleError.bind(this))
     }
 
-    public valid(id: number) {
+    public valid(id: string) {
         return this.http
             .put('/' + String(id) + '/valid')
             .then(this.handleResponse.bind(this))
             .catch(this.handleError.bind(this))
     }
 
-    public invalid(id: number) {
+    public invalid(id: string) {
         return this.http
             .put('/' + String(id) + '/invalid')
             .then(this.handleResponse.bind(this))
             .catch(this.handleError.bind(this))
     }
 
-    public score(id: number, score: any) {
+    public score(id: string, score: any) {
         return this.http
             .put('/' + String(id) + '/score', {
                 score
