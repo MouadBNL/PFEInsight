@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { useMessage, MessageApi, commonDark, useLoadingBar } from 'naive-ui'
+import { baseUrl } from './dataService'
 
 export function isAxiosError(value: any): value is AxiosError {
     return typeof value?.response == 'object'
@@ -23,7 +24,7 @@ export abstract class AbstractApiService
 
     protected constructor(
         protected readonly path?: string,
-        protected readonly baseURL: string = 'http://localhost:8000/api/v1'
+        protected readonly baseURL: string = baseUrl + 'api/v1'
     )
     {
         this.message = useMessage()

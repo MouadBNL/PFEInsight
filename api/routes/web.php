@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return [
-        'hello' => 'world'
-    ];
-});
-
 Route::get('students/export', [ExportController::class, 'students']);
+
+Route::view('/{any}', 'index')->where('any', '.*');

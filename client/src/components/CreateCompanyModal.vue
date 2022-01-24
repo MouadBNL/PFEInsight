@@ -100,9 +100,13 @@ const updateCompany = (e:any) => {
     e.preventDefault();
     companyForm.value.validate(async (err:any) => {
         if(!err) {
-            const res = await companyService.update(company.value.id,company.value)
-            message.success('entreprise modifier avec succès')
-            emit('updated')
+            if(company.value.id){
+                const res = await companyService.update(company.value.id,company.value)
+                message.success('entreprise modifier avec succès')
+                emit('updated')
+            } else {
+                message.success('une erreur s\'est produite veuillez réessayer plus tard')
+            }
         }
     })
 }
