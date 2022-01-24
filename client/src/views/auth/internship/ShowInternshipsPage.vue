@@ -167,7 +167,7 @@ onMounted( async () => {
     console.log(internships.value)
 })
 
-const superviseInternship = async (id: number) =>  {
+const superviseInternship = async (id: string) =>  {
     try {
         await internshipService.supervise(id)
         message.success('vous êtes maintenant le superviseur du stage avec l\'id: ' + id)
@@ -175,7 +175,7 @@ const superviseInternship = async (id: number) =>  {
         internships.value = (await internshipService.index()).data
     }
 }
-const unsuperviseInternship = async (id: number) =>  {
+const unsuperviseInternship = async (id: string) =>  {
     try {
         await internshipService.unsupervise(id)
         message.success('vous n\'êtes plus le superviseur du stage avec l\'id: ' + id)
