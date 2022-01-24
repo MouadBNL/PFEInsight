@@ -1,1 +1,0 @@
-import{A as e}from"./AbstractApiService.js";class t extends e{constructor(){super("/professors")}getAllProfessors(){return this.http.get("").then(this.handleResponse.bind(this)).catch(this.handleError.bind(this))}getProfessor(s){return this.http.get("/"+s).then(this.handleResponse.bind(this)).catch(this.handleError.bind(this))}}function h(){return new t}export{h as u};

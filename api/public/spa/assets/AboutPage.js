@@ -1,1 +1,0 @@
-import{_ as e}from"./index.js";import{o,n as t,y as n}from"./vendor.js";const r={},s=n("h1",null,"About page",-1),a=[s];function c(_,d){return o(),t("div",null,a)}var f=e(r,[["render",c]]);export{f as default};

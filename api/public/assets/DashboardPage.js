@@ -1,1 +1,0 @@
-import{_ as e}from"./index.js";import{o,n,y as r}from"./vendor.js";const s={},a=r("p",null,"You have been logged in",-1),t=[a];function c(_,d){return o(),n("div",null,t)}var f=e(s,[["render",c]]);export{f as default};

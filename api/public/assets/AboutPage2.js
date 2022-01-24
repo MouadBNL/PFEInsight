@@ -1,1 +1,0 @@
-import{e,o as t,n as a,f as o,u as s,a5 as n,w as r,y as c,z as d}from"./vendor.js";const l=d("About this project"),u=c("p",null,"Made by Mouad Benali",-1),h=e({setup(_){return(i,p)=>(t(),a("div",null,[o(s(n),null,{default:r(()=>[l]),_:1}),u]))}});export{h as default};
