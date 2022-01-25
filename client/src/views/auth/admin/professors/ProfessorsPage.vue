@@ -72,6 +72,5 @@ const data = ref<User[]>([])
 onMounted(async () => {
     let res = await professorService.getAllProfessors()
     data.value = res.data
-    console.log(res.data)
 })
 </script>

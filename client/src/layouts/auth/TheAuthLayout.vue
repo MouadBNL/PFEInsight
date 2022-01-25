@@ -73,7 +73,7 @@ onMounted(() => {
       if (from.name) {
         // Start the route progress bar.
         loadingBar.start()
-        console.log('stat loading bar')
+        // console.log('stat loading bar')
       }
       next()
 	  })

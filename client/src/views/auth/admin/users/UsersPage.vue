@@ -109,6 +109,6 @@ onMounted(async () => {
     data.value = res.data.map((user:any) => {
         return UserApiService.formatUser(user)
     })
-    console.log(res.data)
+    // console.log(res.data)
 })
 </script>

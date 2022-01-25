@@ -36,7 +36,6 @@ const createColumns = () => {
             title: 'Etudiants',
             key: 'students',
             render (row:any) {
-                console.log(row.students);
                 return row.students.map((student:any) => {
                     return h(
                         StudentSmallCard,
@@ -164,7 +163,6 @@ const columns: any[] = createColumns();
 
 onMounted( async () => {
     internships.value = await (await internshipService.index()).data
-    console.log(internships.value)
 })
 
 const superviseInternship = async (id: string) =>  {

@@ -72,7 +72,6 @@ onMounted(async () => {
         let id = route.params.id as any
         const res = await studentService.getStudent(id)
         student.value = res.data
-        console.log({t: student.value})
     } catch(err) {
         message.error('erreur lors de l\'accès aux données')
     }
