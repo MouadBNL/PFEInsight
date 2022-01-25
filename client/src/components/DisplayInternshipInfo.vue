@@ -6,10 +6,15 @@
                     <n-space :vertical="true">
                         <n-card title="Etudiant">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                <StudentSmallCard
-                                     v-for="(student, index) in internship.students" :key="index" 
-                                    :student="student"
-                                />
+                                <div v-for="(student, index) in internship.students" :key="index">
+                                    <StudentSmallCard :student="student"/>
+                                        <a class="my-2 mx-2 inline-block" :href="student.certificate ? baseUrl + student.certificate : null" target="_blank">
+                                            <NButton class="ml-4" type="success" :disabled="student.certificate == null">Attestation de stage</NButton>
+                                        </a>
+                                        <a class="my-2 mx-2 inline-block" :href="student.scorecard ? baseUrl + student.scorecard : null" target="_blank">
+                                            <NButton class="ml-4" type="success" :disabled="student.scorecard == null">Fiche d'évaluation</NButton>
+                                        </a>
+                                </div>
                             </div>
                         </n-card>
 
@@ -121,6 +126,7 @@ const score = ref(0)
 
 onMounted(async () => {
     await refreshData()
+    console.log(internship)
 })
 
 const refreshData = async () => {

@@ -49,10 +49,10 @@ class StudentProfileController extends ApiController
             $name
         );
         $user->profile->update([
-            'certificate' => env('APP_URL') . "storage/certificates/$name"
+            'certificate' => "storage/certificates/$name"
         ]);
         return $this->successResponse([
-            'certificate' => env('APP_URL') . "storage/certificates/$name"
+            'certificate' => "storage/certificates/$name"
         ]);
     }
 
@@ -75,10 +75,10 @@ class StudentProfileController extends ApiController
             $name
         );
         $user->profile->update([
-            'scorecard' => env('APP_URL') . "storage/scorecards/$name"
+            'scorecard' => "storage/scorecards/$name"
         ]);
         return $this->successResponse([
-            'scorecard' => env('APP_URL') . "storage/scorecards/$name"
+            'scorecard' => "storage/scorecards/$name"
         ]);
     }
 
