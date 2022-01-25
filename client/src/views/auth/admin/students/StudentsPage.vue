@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import { User } from '@/entities/User'
 import { baseUrl } from '@/services/dataService'
+import fileDownload from 'js-file-download';
 import { useStudentService } from '@/services/StudentApiService'
 import { NH1, NButton,NCard, NDataTable, useMessage, useDialog, NIcon } from 'naive-ui'
 import { h, onMounted, ref, resolveComponent } from 'vue'
@@ -169,7 +170,15 @@ onMounted(async () => {
     data.value = res.data
 })
 
-const openExportExcel = () => {
-    window.open(baseUrl + 'students/export', '_blank')
+const openExportExcel = async () => {
+    message.info('Le téléchargement a été lancé')
+    try {
+        await studentService.exportExcel()
+
+        message.success('Le téléchargement est terminé')
+    }
+    finally{
+
+    }
 }
 </script>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\InvitationController;
 use App\Http\Controllers\Api\V1\StudentProfileController;
 use App\Http\Controllers\Api\V1\TechnologyController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\ExportController;
 use App\Models\Internship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,9 @@ Route::group(['middleware' => ['auth:api', 'role:admin|professor']], function(){
 
 // Admin actions only
 Route::group(['middleware' => ['auth:api', 'role:admin']], function(){
+
+    Route::get('action/students/export', [ExportController::class, 'students']);
+
     Route::apiResource('users', AdminUserController::class)->only('store', 'destroy', 'index');
     
 

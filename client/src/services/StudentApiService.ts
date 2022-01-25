@@ -51,6 +51,24 @@ export class StudentApitService extends AbstractApiService
         .post('/profile/' + key, formData)
         .catch(this.handleError.bind(this))
     }
+
+    public exportExcel()
+    {
+        return this.http
+        .get('/action/students/export', {
+            responseType: 'blob'
+          })
+        .then((res:any) => {
+            const url = window.URL.createObjectURL(res.data);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'etudiants.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+        })
+        .catch(this.handleError.bind(this))
+    }
 }
 
 export function useStudentService(): StudentApitService
