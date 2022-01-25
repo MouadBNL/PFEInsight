@@ -30,7 +30,6 @@
 <script setup lang="ts">
 import { User } from '@/entities/User'
 import { baseUrl } from '@/services/dataService'
-import fileDownload from 'js-file-download';
 import { useStudentService } from '@/services/StudentApiService'
 import { NH1, NButton,NCard, NDataTable, useMessage, useDialog, NIcon, NScrollbar } from 'naive-ui'
 import { h, onMounted, ref, resolveComponent } from 'vue'
