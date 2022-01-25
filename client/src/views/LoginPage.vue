@@ -9,10 +9,10 @@
                 @submit.prevent="handleLogin"
             >
                 <NFormItem label="Email" path="email">
-                    <NInput v-model:value="credentials.email" placeholder="adc@xyz.com" autofocus />
+                    <NInput v-model:value="credentials.email" placeholder="adc@xyz.com" autofocus  @keyup.enter="handleLogin" />
                 </NFormItem>
                 <NFormItem label="Mod de passe" path="password">
-                    <NInput v-model:value="credentials.password" placeholder="******" type="password"/>
+                    <NInput v-model:value="credentials.password" placeholder="******" type="password" @keyup.enter="handleLogin"/>
                 </NFormItem>
                 <NFormItem>
                     <NButton @click="handleLogin" type="primary" :loading="auth.isLoading.value">Connexion</NButton>
