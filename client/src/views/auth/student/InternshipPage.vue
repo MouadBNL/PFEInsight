@@ -177,7 +177,6 @@
         <InviteStudentModal @sent="showInviteModal = false"/>
     </n-modal>
 
-    <pre>{{internship}}</pre>
 </template>
 
 <script setup lang="ts">
