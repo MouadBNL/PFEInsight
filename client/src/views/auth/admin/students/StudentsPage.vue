@@ -15,12 +15,16 @@
     </div>
 
     <n-card>
-        <n-data-table 
-            :columns="createColumns" 
-            :data="data" 
-            :pagination="{pageSize: 20}"
-            :loading="studentService.isLoading.value"
-        />
+        <n-scrollbar  x-scrollable>
+            <div style="min-width: 970px;">
+                <n-data-table 
+                    :columns="createColumns" 
+                    :data="data" 
+                    :pagination="{pageSize: 20}"
+                    :loading="studentService.isLoading.value"
+                />
+            </div>
+        </n-scrollbar>
     </n-card>
 </template>
 <script setup lang="ts">
@@ -28,7 +32,7 @@ import { User } from '@/entities/User'
 import { baseUrl } from '@/services/dataService'
 import fileDownload from 'js-file-download';
 import { useStudentService } from '@/services/StudentApiService'
-import { NH1, NButton,NCard, NDataTable, useMessage, useDialog, NIcon } from 'naive-ui'
+import { NH1, NButton,NCard, NDataTable, useMessage, useDialog, NIcon, NScrollbar } from 'naive-ui'
 import { h, onMounted, ref, resolveComponent } from 'vue'
 import { useRouter } from 'vue-router'
 

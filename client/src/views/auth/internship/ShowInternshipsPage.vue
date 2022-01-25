@@ -2,14 +2,18 @@
     <n-h1>Tous les stages</n-h1>
 
     <n-card>
-        <n-data-table 
-            :bordered="true"
-            :single-line="false"
-            :columns="columns"
-            :data="internships"
-            :pagination="{pageSize: 20}"
-            :loading="internshipService.isLoading.value"
-        />
+        <n-scrollbar  x-scrollable>
+            <div style="min-width: 1050px;">
+                <n-data-table 
+                    :bordered="true"
+                    :single-line="false"
+                    :columns="columns"
+                    :data="internships"
+                    :pagination="{pageSize: 20}"
+                    :loading="internshipService.isLoading.value"
+                />
+            </div>
+        </n-scrollbar>
     </n-card>
 </template>
 
@@ -17,7 +21,7 @@
 import StudentSmallCard from '@/components/StudentSmallCard.vue'
 import { useInternshipService } from '@/services/InternshipApiService'
 import { useAuthStore } from '@/store/useAuthStore'
-import { NH1, NCard, NDataTable, NButton, useMessage, idID } from 'naive-ui'
+import { NH1, NCard, NDataTable, NButton, useMessage, NScrollbar } from 'naive-ui'
 import { h, onMounted, ref, resolveComponent } from 'vue'
 
 const internshipService = useInternshipService()

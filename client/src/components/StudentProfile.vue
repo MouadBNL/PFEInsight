@@ -1,19 +1,19 @@
 <template>
     <n-card title="Information profil" class="mb-4">
         <n-form :model="profile" ref="profileForm" :rules="profileRules">
-            <div class="flex gap-8">
-                <n-form-item path="profile.apogee" label="Apogee" class="w-1/2">
+            <div class="flex flex-wrap md:flex-nowrap gap-8">
+                <n-form-item path="profile.apogee" label="Apogee" class="w-full md:w-1/2">
                     <n-input v-model:value="profile.profile.apogee" @keydown.enter.prevent placeholder="xxxxxxxx" />
                 </n-form-item>
-                <n-form-item path="profile.field" label="Filière" class="w-1/2">
+                <n-form-item path="profile.field" label="Filière" class="w-full md:w-1/2">
                     <n-select v-model:value="profile.profile.field" :options="fieldOprions" placeholder="filière" />
                 </n-form-item>
             </div>
-            <div class="flex gap-8">
-                <n-form-item path="profile.sex" label="Sexe" class="w-1/2">
+            <div class="flex flex-wrap md:flex-nowrap gap-8">
+                <n-form-item path="profile.sex" label="Sexe" class="w-full md:w-1/2">
                     <n-select v-model:value="profile.profile.sex" :options="sexOptions" placeholder="sexe" />
                 </n-form-item>
-                <n-form-item path="profile.birthday" label="Date de naissance" class="w-1/2">
+                <n-form-item path="profile.birthday" label="Date de naissance" class="w-full md:w-1/2">
                     <n-date-picker v-model:value="profile.profile.birthday" placeholder="YYYY-MM-DD" type="date" class="w-full" />
                 </n-form-item>
             </div>
@@ -24,36 +24,40 @@
     </n-card>
 
 
-    <div class="grid grid-cols-2 gap-4" :key="uploadKey">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" :key="uploadKey">
         <n-card>
             <n-h1>Certification de stage</n-h1>
             <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
-            <n-upload
-            style="display: inline-block;width: fit-content; height: fit-content;"
-                :multiple="false"
-                :customRequest="(data:any) => uploadFile('certificate', data, 'Votre certification a été mise à jour')"
-                accept=".pdf,.doc,.docx,.ppt,.pptx"
-            >
-                <n-button :loading="studentService.isLoading.value">Upload de la présentation du rapport</n-button>
-            </n-upload>
-            <a v-if="profile.profile.certificate" :href="profile.profile.certificate" target="_blank">
-                <NButton class="ml-4" type="success">Telecharger</NButton>
-            </a>
+            <div class="flex flex-wrap gap-4">
+                <n-upload
+                style="display: inline-block;width: fit-content; height: fit-content;"
+                    :multiple="false"
+                    :customRequest="(data:any) => uploadFile('certificate', data, 'Votre certification a été mise à jour')"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx"
+                >
+                    <n-button :loading="studentService.isLoading.value">Upload de la présentation du rapport</n-button>
+                </n-upload>
+                <a v-if="profile.profile.certificate" :href="profile.profile.certificate" target="_blank">
+                    <NButton type="success">Telecharger</NButton>
+                </a>
+            </div>
         </n-card>
         <n-card>
             <n-h1>Fiche d'évaluation de stage</n-h1>
             <p>Upload d'un fichier pdf, word ou powerpoint, avec un max de 40Mo</p>
-            <n-upload
-            style="display: inline-block;width: fit-content; height: fit-content;"
-                :multiple="false"
-                :customRequest="(data:any) => uploadFile('scorecard', data, 'Votre certification a été mise à jour')"
-                accept=".pdf,.doc,.docx,.ppt,.pptx"
-            >
-                <n-button :loading="studentService.isLoading.value">Upload de la présentation du rapport</n-button>
-            </n-upload>
-            <a v-if="profile.profile.scorecard" :href="profile.profile.scorecard" target="_blank">
-                <NButton class="ml-4" type="success">Telecharger</NButton>
-            </a>
+            <div class="flex flex-wrap gap-4">
+                <n-upload
+                style="display: inline-block;width: fit-content; height: fit-content;"
+                    :multiple="false"
+                    :customRequest="(data:any) => uploadFile('scorecard', data, 'Votre certification a été mise à jour')"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx"
+                >
+                    <n-button :loading="studentService.isLoading.value">Upload de la présentation du rapport</n-button>
+                </n-upload>
+                <a v-if="profile.profile.scorecard" :href="profile.profile.scorecard" target="_blank">
+                    <NButton type="success">Telecharger</NButton>
+                </a>
+            </div>
         </n-card>
     </div>
 </template>
@@ -73,7 +77,7 @@ const fieldOprions = [
     {label: 'Génie Informatique', value: 'GI'},
     {label: 'Génie Electrique', value: 'GE'},
     {label: 'Génie Industriel', value: 'GInd'},
-    {label: 'Génie Mécatronique d’automobile', value: 'GM'},
+    {label: 'Génie Mécatronique d\'automobile', value: 'GM'},
     {label: 'Réseaux et Systèmes de Télécommunications', value: 'RST'},
 ]
 const profileRules = {

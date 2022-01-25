@@ -30,7 +30,7 @@
             </n-result>
             <div v-else>
 
-                <div class="my-4 grid grid-cols-2 gap-4">
+                <div class="my-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <n-card v-for="student in internship.colleagues">
                         <div class="m-2 p2 flex items-center gap-4">
                                 <img :src="student.profile_picture" class="h-10 w-10 rounded-full" />
@@ -52,7 +52,7 @@
                         <n-form-item path="description" label="Description">
                             <n-input v-model:value="internship.description" type="textarea" placeholder="Description" />
                         </n-form-item>
-                        <div class="grid grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <n-form-item path="supervisor_name" label="Nom et le prénom de l'encadrant">
                             <n-input v-model:value="internship.supervisor_name" placeholder="Nom et le prénom de l'encadrant" />
                             </n-form-item><n-form-item path="supervisor_phone" label="Telephone de l'encadrant ">

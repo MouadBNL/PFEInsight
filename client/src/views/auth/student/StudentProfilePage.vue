@@ -51,7 +51,7 @@ const fieldOprions = [
     {label: 'Génie Informatique', value: 'GI'},
     {label: 'Génie Electrique', value: 'GE'},
     {label: 'Génie Industriel', value: 'GInd'},
-    {label: 'Génie Mécatronique d’automobile', value: 'GM'},
+    {label: 'Génie Mécatronique d\'automobile', value: 'GM'},
     {label: 'Réseaux et Systèmes de Télécommunications', value: 'RST'},
 ]
 const profileRules = {

@@ -6,20 +6,24 @@
         </router-link>
     </div>
 
-    <n-card>
-        <n-data-table 
-            :columns="createColumns" 
-            :data="data" 
-            :pagination="{pageSize: 20}"
-            :loading="userService.isLoading.value"
-        />
+    <n-card >
+        <n-scrollbar  x-scrollable>
+            <div style="min-width: 660px;">
+                <n-data-table 
+                    :columns="createColumns" 
+                    :data="data" 
+                    :pagination="{pageSize: 20}"
+                    :loading="userService.isLoading.value"
+                />
+            </div>
+        </n-scrollbar>
     </n-card>
 </template>
 <script setup lang="ts">
 import { User } from '@/entities/User'
 import { UserApiService, useUserService } from '@/services/UserApiService'
 import { useAuthStore } from '@/store/useAuthStore'
-import { NH1, NButton,NCard, NDataTable, useMessage, useDialog } from 'naive-ui'
+import { NH1, NButton,NCard, NDataTable, useMessage, NScrollbar, useDialog } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
 
 const message = useMessage()

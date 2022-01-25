@@ -1,11 +1,15 @@
 <template>
     <n-h1>Entreprises</n-h1>
     <n-card>
-        <n-data-table
-            :columns="columns"
-            :data="companies"
-            :pagination="{pageSize: 20}"
-        />
+        <n-scrollbar  x-scrollable>
+            <div style="min-width: 970px;">
+                <n-data-table
+                    :columns="columns"
+                    :data="companies"
+                    :pagination="{pageSize: 20}"
+                />
+            </div>
+        </n-scrollbar>
     </n-card>
 
 
@@ -19,7 +23,7 @@
 
 <script setup lang="ts">
 import { useCompanyService } from '@/services/CompanyApiService';
-import { NH1, NCard, NDataTable, NSpace, NButton, NModal, useMessage } from 'naive-ui'
+import { NH1, NCard, NDataTable, NSpace, NButton, NModal, useMessage, NScrollbar } from 'naive-ui'
 import { h, onMounted, ref } from 'vue';
 import CreateCompanyModal from '@/components/CreateCompanyModal.vue';
 

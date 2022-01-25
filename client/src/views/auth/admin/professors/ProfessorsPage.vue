@@ -4,18 +4,22 @@
     </div>
 
     <n-card>
-        <n-data-table 
-            :columns="createColumns" 
-            :data="data" 
-            :pagination="{pageSize: 20}"
-            :loading="professorService.isLoading.value"
-        />
+        <n-scrollbar  x-scrollable>
+            <div style="min-width: 660px;">
+                <n-data-table 
+                    :columns="createColumns" 
+                    :data="data" 
+                    :pagination="{pageSize: 20}"
+                    :loading="professorService.isLoading.value"
+                />
+            </div>
+        </n-scrollbar>
     </n-card>
 </template>
 <script setup lang="ts">
 import { User } from '@/entities/User'
 import { useProfessorService } from '@/services/ProferssorApiService'
-import { NH1, NButton,NCard, NDataTable, useMessage, useDialog } from 'naive-ui'
+import { NH1, NButton,NCard, NDataTable, useMessage, useDialog, NScrollbar } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 

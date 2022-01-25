@@ -4,7 +4,7 @@
             <img :src="authStore.profile_picture" alt="" class="absolute h-full w-full object-cover">     
         </div>
     
-        <div class="flex items-center justify-center gap-4" :key="rerenderKey">
+        <div class="flex flex-wrap items-center justify-center gap-4" :key="rerenderKey">
             <n-upload
             style="display: inline-block;width: fit-content; height: fit-content;"
                 action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"

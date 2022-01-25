@@ -2,7 +2,7 @@
     <div v-if="internship">
         <n-card title="Stage">
             <div class="flex gap-4">
-                <div class="w-2/3">
+                <div class="w-1/2 lg:w-2/3">
                     <n-space :vertical="true">
                         <n-card title="Etudiant">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -60,7 +60,7 @@
                         </n-card>
                     </n-space>
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/2 lg:w-1/3">
                     <n-space :vertical="true">
                         <n-card v-if="authStore.role == 'professor' && authStore.id == internship.supervisor_id" title="Action professeur">
                             <div class="">
@@ -107,11 +107,12 @@
 <script setup lang="ts">
 import { useInternshipService } from '@/services/InternshipApiService'
 import { useAuthStore } from '@/store/useAuthStore'
-import { NH1, NCard, NP, NSpace, NButton, NHr, NInputNumber, NTag } from 'naive-ui'
+import { NH1, NCard, NP, NSpace, NButton, NHr, NInputNumber, NTag, useMessage } from 'naive-ui'
 import StudentSmallCard from '@/components/StudentSmallCard.vue'
 import { onMounted, ref } from 'vue'
 import { baseUrl } from '@/services/dataService'
 
+const message = useMessage()
 const authStore = useAuthStore()
 const internshipService = useInternshipService()
 const props = defineProps<{id: string}>()
@@ -131,13 +132,17 @@ const refreshData = async () => {
 const validSoutenance = async () => {
     await internshipService.valid(internship.value.id)
     await refreshData()
+    message.success('Soutenance validée')
+    
 }
 const invalidSoutenance = async () => {
     await internshipService.invalid(internship.value.id)
     await refreshData()
+    message.success('Soutenance invalidée')
 }
 const setScore = async () => {
     await internshipService.score(internship.value.id, score.value)
     await refreshData()
+    message.success('Stage noté')
 }
 </script>

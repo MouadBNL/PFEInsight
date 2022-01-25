@@ -1,13 +1,13 @@
 <template>
 
     <n-card v-if="student" :title="'Profil de ' + student.last_name + ' ' + student.first_name">
-        <div class="flex">
-            <div class="w-1/3 h-full flex flex-col justify-center">
+        <div class="flex flex-wrap">
+            <div class="w-full lg:w-1/3 mb-16 lg:mb-0 h-full flex flex-col justify-center">
                 <div class="mx-auto h-64 w-64 max-h-64 rounded-full overflow-hidden relative">
                     <img :src="student.profile_picture" alt="" class="absolute top-0 left-0 h-full w-full object-cover">
                 </div>
             </div>
-            <div class="w-2/3">
+            <div class="w-full lg:w-2/3">
                 <div class="flex mb-4">
                     <div class="w-1/2">
                         <span>Prénom:</span>
