@@ -6,10 +6,11 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import axios from 'axios'
 import { useAuthStore } from './store/useAuthStore'
+import { baseUrl } from './services/dataService'
 
 const verifyToken = async () => {
     const http = axios.create({
-        baseURL: 'http://localhost:8000/api/v1/auth/me'
+        baseURL:  baseUrl + 'api/v1/auth/me'
     })
     http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwt_token')}`
     try {
