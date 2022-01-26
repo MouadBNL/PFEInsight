@@ -11,6 +11,7 @@
                 <NFormItem label="Email" path="email">
                     <NInput v-model:value="credentials.email" placeholder="adc@xyz.com" autofocus  @keyup.enter="handleLogin" />
                 </NFormItem>
+                    <p class="block w-full">mot de passe par défaut : password</p>
                 <NFormItem label="Mod de passe" path="password">
                     <NInput v-model:value="credentials.password" placeholder="******" type="password" @keyup.enter="handleLogin"/>
                 </NFormItem>
