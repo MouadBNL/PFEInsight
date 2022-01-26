@@ -43,7 +43,7 @@
       style="height: 64px; padding: 24px;"
       bordered
     >
-      Powered by NaiveUI
+      Réalisé par Benali Mouad, mouadbnl.2k01@gmail.com
     </n-layout-footer>
   </NLayout>
 </template>
