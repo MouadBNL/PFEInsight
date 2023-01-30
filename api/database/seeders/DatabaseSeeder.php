@@ -12,7 +12,29 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+	public function run() {
+		/**
+		 * Creating admin user
+		 */
+		User::create([
+            'first_name' => 'admin',
+            'last_name' => 'pfe',
+            'role' => 'admin',
+            'email' => 'admin@pfeinsight.com',
+            'password' => bcrypt('password')
+        ]);
+
+		$this->call([
+			CompaniesSeeder::class,
+			TechnologiesSeeder::class,
+			TeachersSeeder::class,
+			StudentsSeeder::class
+		]);
+
+
+	}
+
+    public function runOld()
     {
         // \App\Models\User::factory(10)->create();
         User::create([
