@@ -1,6 +1,6 @@
 <template>
     <div class="h-screen max:w-screen flex items-center justify-center bg-gray-100 p-4">
-        <NCard class="w-11/12 md:w-5/12 xl:w-3/12">
+        <NCard class="w-11/12 md:w-5/12 xl:w-4/12">
             <h1 class="text-center text-3xl font-extrabold mb-8 mt-0">PFE Insight</h1>
             <NForm
                 :model="credentials"
@@ -19,6 +19,11 @@
                     <NButton @click="handleLogin" type="primary" :loading="auth.isLoading.value">Connexion</NButton>
                 </NFormItem>
             </NForm>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-8">
+                <NButton type="info" @click="() => generateDemoUser('admin')">Demo Admin</NButton>
+                <NButton type="info" @click="() => generateDemoUser('student')">Demo Edtudian</NButton>
+                <NButton type="info" @click="() => generateDemoUser('professor')">Demo Professeur</NButton>
+            </div>
         </NCard>
     </div>
 </template>
@@ -72,5 +77,12 @@ const handleLogin = async (e:any) => {
         }
     })
 
+}
+
+const generateDemoUser = async (role: 'student' | 'professor' | 'admin') => {
+    const res = await auth.demo(role)
+    credentials.value.email = res.data.email
+    credentials.value.password = res.data.password
+    console.log(res)
 }
 </script>

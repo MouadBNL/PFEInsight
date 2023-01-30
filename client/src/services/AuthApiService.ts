@@ -46,6 +46,21 @@ export class AuthApiService extends AbstractApiService
                 console.log({err})
             })
     }
+
+    public demo(role: 'student' | 'professor' | 'admin')
+    {
+        return this.http
+            .post('demo', {
+                role: role
+            })
+            .then((res) => {
+                this.message.info("L'utilisateur de démo a été généré !")
+                return res.data
+            })
+            .catch((err) => {
+                this.message.error("Erreur lors de la génération , veuillez réessayer.")
+            })
+    }
 }
 
 export function useAuthService(): AuthApiService {

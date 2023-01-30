@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 
 class AuthController extends ApiController
 {
@@ -72,6 +73,26 @@ class AuthController extends ApiController
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
+
+    protected function generateDemoUser()
+    {
+        $data = request()->validate([
+            'role' => 'string|required|in:admin,professor,student'
+        ]);
+
+        $user = User::factory()->create([
+            'role' => $data['role']
+        ]);
+
+        if($user->role =='student') {
+            $user->profile()->create();
+        }
+
+        return $this->successResponse([
+            'email' => $user->email,
+            'password' => 'password'
         ]);
     }
 }

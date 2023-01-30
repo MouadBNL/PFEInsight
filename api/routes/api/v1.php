@@ -39,6 +39,7 @@ Route::group(['prefix' => 'auth'], function() {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('me', [AuthController::class, 'me']);
     });
+    Route::post('demo', [AuthController::class, 'generateDemoUser']);
 
 });
 
