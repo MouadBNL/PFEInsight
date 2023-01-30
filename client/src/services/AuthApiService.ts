@@ -41,9 +41,11 @@ export class AuthApiService extends AbstractApiService
             .post('logout')
             .then((res) => {
                 localStorage.removeItem('jwt_token')
-                window.location.reload()
             }).catch((err:any) => {
                 console.log({err})
+            })
+            .finally(() => {
+                window.location.reload()
             })
     }
 
